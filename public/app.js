@@ -209,7 +209,7 @@ function save(){
 }
 function cloudSnapshot(){
  return {
-   version:"V80.3.5 COMPLETA",
+   version:"V80.3.6 SIN EXISTENCIA CORREGIDA",
    savedAt:new Date().toISOString(),
    inventory:state.inventory,
    movements:state.movements,
@@ -2490,9 +2490,7 @@ function renderSinExist(){
  const rows=items.map(p=>{
    const rec=activeStockoutForCode(p.code);
    const dt=stockoutDateTime(rec?.detectedAt||"");
-   const rowCounted=c.physical!=="";
-   const rowClass=rowCounted?"digital-row-counted":"";
-   return `<tr class="${rowClass}" data-digital-row="${p.id}">
+   return `<tr>
      <td><div class="table-actions"><button class="mini-action" data-view-product="${p.id}" title="Ver detalle">◉</button></div></td>
      <td>${dt.date}</td>
      <td>${dt.time}</td>
