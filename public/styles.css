@@ -1,0 +1,4612 @@
+:root{
+ --primary:#4355c7;--primary-soft:#e3e5ff;--surface:#faf8ff;--card:#f1eef6;--card2:#e9e6ee;
+ --text:#1b1b20;--muted:#64636d;--outline:#d3d0db;--danger:#b3261e;--ok:#176b36;--warn:#7a5400;
+ --shadow:0 14px 34px rgba(20,20,35,.10);--safe:env(safe-area-inset-bottom,0px)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--surface);color:var(--text)}
+button,input,select{font:inherit}
+button{border:0}
+body.dark{--primary:#bac3ff;--primary-soft:#283a82;--surface:#121318;--card:#1e1f25;--card2:#2a2b32;--text:#ece8f0;--muted:#c7c4ce;--outline:#4d4d56}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100dvh}
+.sidebar{position:sticky;top:0;height:100dvh;padding:20px 14px;background:var(--card);border-radius:0 28px 28px 0;display:flex;flex-direction:column;z-index:30}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 8px 20px}
+.brand-icon{width:44px;height:44px;border-radius:15px;background:var(--primary-soft);display:grid;place-items:center;font-size:22px;color:var(--primary)}
+.brand strong{display:block}.brand small{color:var(--muted);font-size:12px}
+.sidebar nav{display:flex;flex-direction:column;gap:4px}
+.nav{height:50px;border-radius:17px;background:transparent;color:var(--muted);display:flex;align-items:center;gap:13px;padding:0 15px;text-align:left;cursor:pointer}
+.nav span{width:23px;text-align:center;font-size:20px}
+.nav.active{background:var(--primary-soft);color:var(--text);font-weight:700}
+.side-foot{margin-top:auto;font-size:11px;color:var(--muted);padding:12px;display:flex;gap:8px;align-items:center}.dot{width:8px;height:8px;border-radius:50%;background:#4caf6a}
+.main{min-width:0}.topbar{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px 24px 12px;background:rgba(250,248,255,.90);backdrop-filter:blur(14px)}
+.dark .topbar{background:rgba(18,19,24,.9)}
+.title-wrap{display:flex;align-items:center;gap:10px}.title-wrap small{font-size:11px;text-transform:uppercase;color:var(--muted);font-weight:700;letter-spacing:.06em}
+h1{font-size:29px;margin:4px 0 0}h2{margin:2px 0;font-size:22px}.top-actions{display:flex;align-items:center;gap:8px}
+.search{width:min(340px,34vw);height:46px;background:var(--card);border-radius:23px;display:flex;align-items:center;gap:8px;padding:0 14px}
+.search input{width:100%;border:0;background:transparent;outline:0;color:var(--text)}
+.icon-btn{width:44px;height:44px;border-radius:15px;background:var(--card);color:var(--text);display:grid;place-items:center;cursor:pointer;font-size:20px}
+.mobile-only{display:none}.content{max-width:1500px;margin:0 auto;padding:10px 24px 110px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}.hero-a,.hero-b{border-radius:28px;padding:28px;min-height:210px}
+.hero-a{background:linear-gradient(135deg,#dde0ff,#f0e1ff);color:#111}.hero-a h2{font-size:33px;max-width:650px}.hero-a p{max-width:650px;line-height:1.45}
+.hero-b{background:#1e1f24;color:white;display:flex;flex-direction:column;justify-content:space-between}.big{font-size:60px;font-weight:800;letter-spacing:-.04em}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{height:44px;border-radius:16px;padding:0 16px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;justify-content:center}
+.btn.primary{background:var(--primary);color:white}.btn.tonal{background:var(--primary-soft);color:var(--text)}.btn.outline{background:transparent;border:1px solid var(--outline);color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stat{background:var(--card);border-radius:22px;padding:18px}.stat b{font-size:34px;display:block;margin-top:22px}.stat small{color:var(--muted)}
+.panel,.form-card{background:var(--card);border-radius:24px;padding:18px;margin-bottom:16px}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.table-wrap{overflow:auto;border-radius:17px;background:var(--surface);-webkit-overflow-scrolling:touch}table{border-collapse:collapse;width:100%;min-width:720px}th,td{padding:12px 13px;border-bottom:1px solid var(--card2);text-align:left;font-size:13px;white-space:nowrap}th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--card2)}tbody tr:last-child td{border-bottom:0}
+.inventory-table{min-width:1160px}.movement-table{min-width:940px}.qty{font-weight:800}
+.table-actions{display:flex;justify-content:center;align-items:center;gap:6px}.mini-action{width:34px;height:34px;border-radius:12px;background:var(--card2);color:var(--text);cursor:pointer;display:grid;place-items:center;font-size:17px}.mini-action:hover{background:var(--primary-soft)}
+.inventory-table th:first-child,.inventory-table td:first-child{width:70px;text-align:center}.movement-table th:last-child,.movement-table td:last-child{width:90px;text-align:center}
+.chip{display:inline-flex;align-items:center;justify-content:center;min-height:29px;border-radius:999px;padding:0 9px;font-size:10px;font-weight:800}.ok{background:#daf4df;color:#0b5125}.low{background:#fff0c8;color:#6c4b00}.zero{background:#ffdad6;color:#690005}.pending{background:#fff1cc;color:#684700;border:1px solid #eac268}.downloaded{background:#daf4df;color:#0b5125;border:1px solid #9bd3a7}
+.order-input{width:112px;height:36px;border:1px solid #b9c3e3;border-radius:10px;background:var(--surface);color:var(--text);padding:0 9px;font-size:12px;outline:0}.order-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(67,85,199,.12)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;color:var(--muted)}input,select{height:48px;border:1px solid transparent;border-radius:14px;background:var(--surface);color:var(--text);padding:0 12px;outline:0}input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(67,85,199,.12)}
+.no-spinner{-moz-appearance:textfield;appearance:textfield}.no-spinner::-webkit-outer-spin-button,.no-spinner::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.autocomplete{position:relative}.suggestions{position:absolute;top:76px;left:0;right:0;z-index:80;background:var(--surface);border:1px solid var(--outline);border-radius:16px;padding:6px;box-shadow:var(--shadow);max-height:270px;overflow:auto}.suggestion{width:100%;background:transparent;color:var(--text);border-radius:11px;display:flex;justify-content:space-between;align-items:center;padding:10px;text-align:left;cursor:pointer}.suggestion:hover{background:var(--primary-soft)}.suggestion small{display:block;color:var(--muted);margin-top:3px}.suggestion .stock{background:var(--card2);border-radius:999px;padding:5px 8px;font-weight:800}.hint{color:var(--muted);font-size:11px;line-height:1.35}
+dialog{border:0;padding:0;background:transparent;width:min(92vw,560px)}dialog::backdrop{background:rgba(0,0,0,.35);backdrop-filter:blur(3px)}.dialog-card{background:var(--surface);border-radius:26px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:13px}.dialog-head{display:flex;justify-content:space-between;align-items:center}.dialog-head small{color:var(--muted);text-transform:uppercase;font-weight:800;font-size:10px;letter-spacing:.05em}.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:5px}
+.detail-list{display:grid;gap:8px}.detail-row{background:var(--card);border-radius:14px;padding:12px 13px;display:flex;justify-content:space-between;gap:12px}.detail-row span{font-size:12px;color:var(--muted)}.detail-row strong{text-align:right}.mini-summary{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mini-summary div{background:var(--card);border-radius:14px;padding:12px}.mini-summary small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}.mini-summary strong{display:block;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.notice{padding:11px 13px;border-radius:14px;background:var(--primary-soft);font-size:12px;line-height:1.4}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.quick{background:var(--card);border-radius:20px;padding:18px;text-align:left;color:var(--text);cursor:pointer}.quick b{display:block;margin-top:20px}.quick small{display:block;color:var(--muted);margin-top:5px;line-height:1.4}
+.setting{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--card2)}.setting:last-child{border:0}.setting p{margin:3px 0 0;color:var(--muted);font-size:12px}.list-editor{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.tag{background:var(--primary-soft);border-radius:999px;padding:7px 10px;font-size:12px;display:inline-flex;gap:7px;align-items:center}.tag button{background:transparent;color:var(--text);cursor:pointer}
+.empty{text-align:center;padding:45px 15px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--text);color:var(--surface);padding:11px 15px;border-radius:14px;z-index:100;transition:.2s;box-shadow:var(--shadow)}.toast.show{opacity:1;transform:translate(-50%,0)}
+.bottom-nav{display:none}.scrim{display:none}
+@media(max-width:1050px){.app{grid-template-columns:88px 1fr}.sidebar{align-items:center}.brand>div:last-child,.nav:not(.active){ }.brand div:last-child{display:none}.nav{width:58px;padding:0;justify-content:center}.nav:not(.active){ }.nav{font-size:0}.nav span{font-size:20px}.side-foot{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+ body{padding-bottom:calc(78px + var(--safe))}.app{display:block}.sidebar{position:fixed;left:0;top:0;bottom:0;width:min(84vw,310px);height:100dvh;transform:translateX(-105%);transition:.22s;align-items:stretch;box-shadow:var(--shadow);z-index:60}.sidebar.open{transform:translateX(0)}.brand div:last-child{display:block}.nav{width:100%;font-size:14px;padding:0 15px;justify-content:flex-start}.nav span{font-size:20px}.side-foot{display:flex}.scrim.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:50}.topbar{padding:12px 12px 62px}.mobile-only{display:grid}.title-wrap small{display:none}h1{font-size:24px}.search{position:absolute;left:12px;right:12px;top:67px;width:auto}.content{padding:8px 12px 24px}.hero{grid-template-columns:1fr}.hero-a,.hero-b{min-height:0;padding:22px}.hero-a h2{font-size:28px}.big{font-size:48px}.stats{grid-template-columns:1fr 1fr;gap:9px}.stat{padding:15px}.stat b{font-size:28px}.form-grid,.grid2,.grid4{grid-template-columns:1fr}.quick-grid{grid-template-columns:1fr}.bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;z-index:45;left:7px;right:7px;bottom:calc(7px + var(--safe));height:68px;background:rgba(241,238,246,.96);backdrop-filter:blur(14px);border-radius:22px;padding:5px;box-shadow:var(--shadow)}.dark .bottom-nav{background:rgba(30,31,37,.96)}.bottom{background:transparent;color:var(--muted);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}.bottom span{font-size:21px}.bottom small{font-size:9px}.bottom.active{background:var(--primary-soft);color:var(--text);font-weight:800}.toast{bottom:calc(91px + var(--safe));max-width:90vw}.movement-table{min-width:900px}.inventory-table{min-width:1120px}
+}
+@media(max-width:390px){.stats{grid-template-columns:1fr}}
+
+
+/* Acciones de Registrar salida: detalle, editar cantidad y eliminar */
+.movement-actions{
+  min-width:116px;
+}
+.delete-action:hover{
+  background:#ffdad6;
+  color:#690005;
+}
+.movement-table th:last-child,
+.movement-table td:last-child{
+  width:126px;
+}
+@media(max-width:760px){
+  .movement-actions{
+    min-width:108px;
+  }
+  .movement-table th:last-child,
+  .movement-table td:last-child{
+    width:118px;
+  }
+}
+
+
+/* Bloqueo de N. de Orden */
+.order-cell{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.order-input.order-locked{
+  background:var(--card2);
+  border-color:var(--outline);
+  color:var(--muted);
+  cursor:not-allowed;
+  padding-right:8px;
+}
+.order-lock-mark{
+  font-size:14px;
+  line-height:1;
+}
+.lock-action{
+  font-size:15px;
+}
+.lock-action.unlock-ready{
+  background:var(--primary-soft);
+  color:var(--text);
+}
+.lock-action:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+.movement-actions{
+  min-width:154px;
+}
+.movement-table th:last-child,
+.movement-table td:last-child{
+  width:164px;
+}
+@media(max-width:760px){
+  .movement-actions{
+    min-width:148px;
+  }
+  .movement-table th:last-child,
+  .movement-table td:last-child{
+    width:158px;
+  }
+}
+
+
+/* Corrección V13: desbloqueo funcional de N. de Orden */
+.lock-action.unlock-ready{
+  cursor:pointer;
+  background:#e3e5ff;
+  color:#1f327e;
+}
+.dark .lock-action.unlock-ready{
+  background:var(--primary-soft);
+  color:var(--text);
+}
+.lock-action.unlock-ready:hover{
+  transform:translateY(-1px);
+  box-shadow:0 5px 12px rgba(40,50,120,.16);
+}
+.order-input:not(.order-locked){
+  cursor:text;
+}
+
+
+/* Conteo Semanal editable */
+.weekly-table{min-width:1120px}
+.weekly-table th:nth-child(5),.weekly-table td:nth-child(5),
+.weekly-table th:nth-child(6),.weekly-table td:nth-child(6),
+.weekly-table th:nth-child(7),.weekly-table td:nth-child(7),
+.weekly-table th:nth-child(8),.weekly-table td:nth-child(8){
+  text-align:center;vertical-align:middle
+}
+.weekly-physical{
+  width:96px;height:38px;text-align:center;font-weight:800;
+  border:1px solid var(--outline);border-radius:11px;background:var(--surface)
+}
+.weekly-physical:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(67,85,199,.12)}
+.weekly-obs{
+  width:190px;height:38px;border:1px solid var(--outline);
+  border-radius:11px;background:var(--surface)
+}
+.weekly-diff{min-width:58px}
+@media(max-width:760px){
+  .weekly-table{min-width:1070px}
+  .weekly-obs{width:170px}
+}
+
+
+/* Estados del Conteo Semanal */
+.chip.count-balanced{
+  background:#daf4df;
+  color:#0b5125;
+  border:1px solid #9bd3a7;
+}
+.chip.count-surplus{
+  background:#dcecff;
+  color:#174b7a;
+  border:1px solid #9fc6ef;
+}
+.chip.count-shortage{
+  background:#ffdad6;
+  color:#690005;
+  border:1px solid #efaaa4;
+}
+
+
+/* Barra avanzada de Conteo Semanal */
+.weekly-head{
+  align-items:flex-start;
+  flex-wrap:wrap;
+}
+.weekly-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.drop-wrap{
+  position:relative;
+}
+.toolbar-btn{
+  height:42px;
+  padding:0 14px;
+  border-radius:15px;
+  border:1px solid var(--outline);
+  background:var(--surface);
+  color:var(--text);
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  box-shadow:0 2px 7px rgba(25,25,35,.03);
+}
+.toolbar-btn:hover{
+  background:var(--primary-soft);
+}
+.drop-menu{
+  position:absolute;
+  z-index:120;
+  right:0;
+  top:49px;
+  width:310px;
+  max-height:min(70vh,520px);
+  overflow:auto;
+  padding:9px;
+  border-radius:18px;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  box-shadow:0 18px 42px rgba(25,25,35,.17);
+}
+.drop-menu label{
+  margin:7px 0 10px;
+}
+.drop-menu select,
+.drop-menu input{
+  height:44px;
+  border:1px solid var(--outline);
+}
+.compact-menu{
+  width:270px;
+}
+.print-menu{
+  width:320px;
+}
+.action-menu{
+  width:300px;
+}
+.menu-title{
+  padding:8px 8px 12px;
+  border-bottom:1px solid var(--card2);
+  margin-bottom:5px;
+}
+.menu-title b{
+  display:block;
+}
+.menu-title small{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px;
+}
+.menu-line{
+  width:100%;
+  min-height:42px;
+  padding:9px 11px;
+  border-radius:13px;
+  background:transparent;
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  border:1px solid transparent;
+}
+.menu-line:hover{
+  background:var(--primary-soft);
+}
+.menu-line:disabled{
+  opacity:.38;
+  cursor:not-allowed;
+}
+.menu-line.primary-line{
+  background:#3564e8;
+  color:white;
+  font-weight:800;
+}
+.menu-line.primary-line:hover{
+  filter:brightness(.97);
+}
+.menu-line.rich{
+  justify-content:flex-start;
+}
+.menu-line.rich > span{
+  flex:1;
+  min-width:0;
+}
+.menu-line.rich b{
+  display:block;
+  font-size:13px;
+}
+.menu-line.rich small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:10px;
+  white-space:normal;
+}
+.menu-line.rich:disabled small{
+  color:inherit;
+}
+@media(max-width:760px){
+  .weekly-toolbar{
+    width:100%;
+    justify-content:flex-start;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .toolbar-btn{
+    width:100%;
+    justify-content:center;
+  }
+  .drop-wrap{
+    position:static;
+  }
+  .drop-menu{
+    position:fixed;
+    left:12px;
+    right:12px;
+    top:auto;
+    bottom:calc(88px + var(--safe));
+    width:auto;
+    max-height:62vh;
+    z-index:130;
+  }
+  .compact-menu,.print-menu,.action-menu{
+    width:auto;
+  }
+}
+
+
+/* Flujo de semana obligatoria */
+.toolbar-btn:disabled{
+  opacity:.38;
+  cursor:not-allowed;
+  background:var(--card);
+}
+.weekly-panel .empty{
+  line-height:1.65;
+}
+#createWeekDialog .notice{
+  margin-top:2px;
+}
+
+
+/* Productos exclusivos del Conteo Semanal */
+.weekly-meta-input{
+  width:135px;
+  height:36px;
+  border:1px dashed var(--outline);
+  border-radius:10px;
+  background:var(--surface);
+  color:var(--text);
+  padding:0 9px;
+  font-size:11px;
+}
+.weekly-desc-input{
+  width:185px;
+}
+.weekly-extra-stock{
+  width:76px;
+  height:36px;
+  text-align:center;
+  border:1px dashed var(--outline);
+  border-radius:10px;
+  background:var(--surface);
+  color:var(--text);
+  font-weight:800;
+}
+.weekly-meta-input:focus,
+.weekly-extra-stock:focus{
+  border-style:solid;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(67,85,199,.10);
+}
+
+
+/* Inventario Digital por familia */
+.digital-head{
+  align-items:flex-start;
+  flex-wrap:wrap;
+}
+.digital-tools{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.digital-family-select{
+  min-width:190px;
+  height:42px;
+  border:1px solid var(--outline);
+  border-radius:14px;
+  background:var(--surface);
+}
+.digital-search{
+  width:230px;
+  height:42px;
+  border:1px solid var(--outline);
+  border-radius:14px;
+  background:var(--surface);
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 11px;
+}
+.digital-search input{
+  width:100%;
+  height:auto;
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+.digital-search input:focus{
+  box-shadow:none;
+}
+.digital-condition-panel{
+  max-width:420px;
+  margin:0 0 14px auto;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid var(--outline);
+  background:var(--surface);
+  box-shadow:var(--shadow);
+}
+.condition-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.condition-head b{display:block}
+.condition-head small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:11px;
+}
+.icon-btn.tiny{
+  width:32px;height:32px;border-radius:10px;
+}
+.condition-values{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.digital-table{
+  min-width:1150px;
+}
+.digital-table th:first-child,
+.digital-table td:first-child{
+  width:68px;
+  text-align:center;
+}
+.digital-table th:nth-child(6),
+.digital-table td:nth-child(6),
+.digital-table th:nth-child(7),
+.digital-table td:nth-child(7),
+.digital-table th:nth-child(9),
+.digital-table td:nth-child(9){
+  text-align:center;
+  vertical-align:middle;
+}
+.digital-physical{
+  width:94px;
+  height:38px;
+  text-align:center;
+  font-weight:800;
+  border:1px solid var(--outline);
+  border-radius:11px;
+  background:var(--surface);
+}
+.digital-obs{
+  width:185px;
+  height:38px;
+  border:1px solid var(--outline);
+  border-radius:11px;
+  background:var(--surface);
+}
+@media(max-width:760px){
+  .digital-tools{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .digital-family-select,.digital-search,.digital-tools .toolbar-btn{
+    width:100%;
+  }
+  .digital-condition-panel{
+    max-width:none;
+    margin:0 0 14px 0;
+  }
+  .condition-values{
+    grid-template-columns:1fr;
+  }
+  .digital-table{
+    min-width:1090px;
+  }
+}
+
+
+/* V21 - Filtro de Inventario Digital como desplegable */
+.digital-filter-wrap{position:relative}
+.digital-filter-menu{
+  width:330px;
+  top:49px;
+  right:0;
+  left:auto;
+  padding:10px;
+  max-height:min(72vh,520px);
+  overflow:auto;
+}
+.digital-filter-menu label{margin:7px 0 9px}
+.digital-filter-menu select,
+.digital-filter-menu input{height:42px;border:1px solid var(--outline)}
+.digital-filter-actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:6px;
+  margin-top:7px;
+}
+.digital-filter-actions .primary-line{justify-content:center}
+.digital-condition-panel{display:none!important}
+@media(max-width:760px){
+  .digital-filter-wrap{position:static}
+  .digital-filter-menu{
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:calc(88px + var(--safe));
+    top:auto;
+    width:auto;
+    max-height:62vh;
+    z-index:140;
+  }
+}
+
+
+/* V22 - Diferencias tomadas de Inventario Digital */
+.differences-head{align-items:flex-start}
+.counted-family-bar{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+  margin:-2px 0 14px;
+}
+.counted-family-label{
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
+}
+.counted-family-chip{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:0 10px;
+  border-radius:999px;
+  background:var(--primary-soft);
+  color:var(--text);
+  font-size:11px;
+  font-weight:750;
+}
+.differences-digital-table{min-width:930px}
+.differences-digital-table th:nth-child(5),
+.differences-digital-table td:nth-child(5),
+.differences-digital-table th:nth-child(6),
+.differences-digital-table td:nth-child(6),
+.differences-digital-table th:nth-child(7),
+.differences-digital-table td:nth-child(7),
+.differences-digital-table th:nth-child(8),
+.differences-digital-table td:nth-child(8){
+  text-align:center;
+  vertical-align:middle;
+}
+@media(max-width:760px){
+  .differences-digital-table{min-width:900px}
+}
+
+
+/* V23 - Fecha y hora de detección de diferencias */
+.differences-digital-table{min-width:1120px}
+.differences-digital-table th:first-child,
+.differences-digital-table td:first-child,
+.differences-digital-table th:nth-child(2),
+.differences-digital-table td:nth-child(2){
+  white-space:nowrap;
+}
+@media(max-width:760px){
+  .differences-digital-table{min-width:1080px}
+}
+
+
+/* V24 - Responsable obligatorio en Inventario Digital */
+.responsible-btn{
+  max-width:260px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#digitalResponsibleDialog .hint{
+  margin:0 0 4px;
+  line-height:1.5;
+}
+.differences-digital-table{
+  min-width:1240px;
+}
+@media(max-width:760px){
+  .responsible-btn{
+    width:100%;
+    max-width:none;
+  }
+  .differences-digital-table{
+    min-width:1180px;
+  }
+}
+
+
+/* V25 - Cerrar familia y acciones de Diferencias */
+.close-family-btn{
+  background:#3564e8;
+  color:white;
+  border-color:transparent;
+}
+.close-family-btn:disabled{
+  background:var(--card);
+  color:var(--muted);
+}
+.difference-actions{
+  min-width:78px;
+}
+.review-action:hover{
+  background:var(--primary-soft);
+}
+.adjust-action:hover{
+  background:#daf4df;
+  color:#0b5125;
+}
+.differences-digital-table{
+  min-width:1320px;
+}
+.differences-digital-table th:last-child,
+.differences-digital-table td:last-child{
+  text-align:center;
+  width:92px;
+}
+@media(max-width:760px){
+  .close-family-btn{width:100%}
+  .differences-digital-table{min-width:1260px}
+}
+
+
+/* V26 - Google Sheets como base de datos */
+.cloud-db-card{
+  margin-top:18px;
+  padding:18px;
+  border:1px solid var(--outline);
+  border-radius:22px;
+  background:var(--surface);
+}
+.cloud-db-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:15px;
+}
+.cloud-db-head small{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.09em;
+  color:var(--primary);
+}
+.cloud-db-head h3{
+  margin:3px 0 2px;
+  font-size:20px;
+}
+.cloud-db-head p{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+}
+.cloud-status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:34px;
+  padding:0 11px;
+  border:1px solid var(--outline);
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.cloud-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#9aa0a6;
+}
+.cloud-dot.ok{background:#1e8e3e}
+.cloud-dot.error{background:#d93025}
+.cloud-dot.syncing{background:#f9ab00;animation:cloudPulse 1s infinite alternate}
+.cloud-dot.local{background:#80868b}
+@keyframes cloudPulse{to{opacity:.35}}
+.cloud-grid{
+  display:grid;
+  grid-template-columns:1fr 280px;
+  gap:10px;
+}
+.cloud-check{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-top:12px;
+  padding:11px 12px;
+  border:1px solid var(--outline);
+  border-radius:14px;
+  cursor:pointer;
+}
+.cloud-check input{
+  width:18px;
+  height:18px;
+  margin-top:2px;
+}
+.cloud-check span{display:block}
+.cloud-check b{display:block;font-size:12px}
+.cloud-check small{display:block;color:var(--muted);margin-top:2px;font-size:10px}
+.cloud-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+.danger-soft{
+  background:rgba(217,48,37,.08);
+  color:#b3261e;
+}
+.cloud-help{
+  margin-top:14px;
+  padding:12px 13px;
+  border-radius:14px;
+  background:var(--primary-soft);
+  font-size:11px;
+  line-height:1.55;
+}
+.cloud-help p{margin:4px 0 0}
+@media(max-width:760px){
+  .cloud-db-head{flex-direction:column}
+  .cloud-grid{grid-template-columns:1fr}
+  .cloud-status{width:100%;justify-content:center}
+  .cloud-actions{display:grid;grid-template-columns:1fr}
+  .cloud-actions .btn{width:100%}
+}
+
+
+/* V27 - Importador de Inventario TXT */
+.import-inventory-tool{
+  position:relative;
+  min-height:142px;
+}
+.quick-note{
+  display:block;
+  margin-top:7px;
+  padding:6px 8px;
+  border-radius:10px;
+  background:var(--primary-soft);
+  color:var(--text);
+  font-size:10px;
+  line-height:1.35;
+}
+.import-help{
+  margin-top:14px;
+  padding:13px 14px;
+  border:1px solid var(--outline);
+  border-radius:16px;
+  background:var(--surface);
+  font-size:11px;
+  line-height:1.55;
+}
+.import-help b{display:block;margin-bottom:3px}
+.import-help p{margin:0;color:var(--muted)}
+
+
+/* V29 - Códigos Nuevos */
+.newcodes-head{align-items:flex-start;flex-wrap:wrap}
+.newcodes-note{
+  margin-bottom:14px;padding:12px 14px;border:1px solid var(--outline);
+  border-radius:16px;background:var(--primary-soft);font-size:11px;line-height:1.55
+}
+.newcodes-note b{display:block;margin-bottom:3px}
+.newcodes-table{min-width:1040px}
+.pending-base-input,.pending-base-number{
+  height:38px;border:1px solid var(--outline);border-radius:10px;
+  background:var(--surface);color:var(--text);padding:0 9px;font-size:11px
+}
+.pending-base-input{width:135px}
+.pending-desc{width:260px}
+.pending-base-number{width:78px;text-align:center;font-weight:800}
+.save-new-base{background:var(--primary-soft)}
+@media(max-width:760px){
+  .newcodes-head .actions{width:100%;display:grid;grid-template-columns:1fr}
+  .newcodes-head .actions .btn{width:100%}
+  .newcodes-table{min-width:1000px}
+}
+
+
+/* V30 - Catálogo opcional + guardado local primero */
+#baseQueueStatus{font-weight:800}
+#syncBaseQueueNow{white-space:nowrap}
+.pending-base-input::placeholder{color:var(--muted)}
+
+
+/* V31 - confirmación de escritura BASE_PRODUCTOS */
+#testBaseWriteSupport{white-space:nowrap}
+
+
+/* V32 - Sin Existencia con fecha/hora */
+.stockout-table{min-width:1280px}
+.stockout-table th:nth-child(2),
+.stockout-table td:nth-child(2),
+.stockout-table th:nth-child(3),
+.stockout-table td:nth-child(3){
+  white-space:nowrap;
+}
+.stockout-table th:nth-child(8),
+.stockout-table td:nth-child(8),
+.stockout-table th:nth-child(9),
+.stockout-table td:nth-child(9),
+.stockout-table th:nth-child(10),
+.stockout-table td:nth-child(10),
+.stockout-table th:nth-child(11),
+.stockout-table td:nth-child(11){
+  text-align:center;
+}
+#printDigitalFamilyBtn{white-space:nowrap}
+@media(max-width:760px){
+  .stockout-table{min-width:1220px}
+  #printDigitalFamilyBtn{width:100%}
+}
+\n\n/* V34 CENTRAL */\n.central-staff-setting p{margin:4px 0 8px;color:var(--muted);font-size:11px}\n.central-staff-setting b{display:block}\n#cloudProxy:checked + span b{font-weight:900}\n
+
+
+/* =========================
+   V35 - MODALES MEJORADOS
+   ========================= */
+
+/* Centrado y tamaño general */
+dialog{
+  padding:0;
+  border:0;
+  background:transparent;
+  width:auto !important;
+  max-width:none !important;
+}
+dialog[open]{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+dialog::backdrop{
+  background:rgba(15,23,42,.38);
+  backdrop-filter:blur(4px);
+}
+
+/* Tarjeta general del modal */
+.dialog-card{
+  width:min(860px, calc(100vw - 28px)) !important;
+  max-width:min(860px, calc(100vw - 28px)) !important;
+  max-height:88vh;
+  overflow:auto;
+  box-sizing:border-box;
+  border-radius:28px;
+  padding:0 !important;
+  gap:0 !important;
+  box-shadow:0 28px 70px rgba(0,0,0,.18);
+}
+.dialog-card > *{
+  min-width:0;
+}
+.dialog-head{
+  padding:20px 22px 14px !important;
+  margin:0 !important;
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:var(--surface);
+  border-bottom:1px solid var(--outline);
+}
+.dialog-head h2{
+  margin-top:2px;
+}
+
+/* Cuerpo interno para formularios sin que se desborde */
+#productForm > .grid2,
+#productForm > .grid4,
+#productForm > label,
+#productForm > .dialog-actions,
+#editQtyForm > .mini-summary,
+#editQtyForm > label,
+#editQtyForm > .hint,
+#editQtyForm > .notice,
+#editQtyForm > .dialog-actions,
+#createWeekForm > label,
+#createWeekForm > .dialog-actions,
+#digitalResponsibleForm > label,
+#digitalResponsibleForm > .dialog-actions{
+  padding-left:22px;
+  padding-right:22px;
+}
+
+#productForm > label,
+#editQtyForm > label,
+#createWeekForm > label,
+#digitalResponsibleForm > label{
+  margin-top:14px;
+}
+
+#productForm .grid2,
+#productForm .grid4{
+  margin-top:14px;
+}
+
+.grid2,
+.grid4{
+  min-width:0;
+}
+.grid2{
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  gap:14px !important;
+}
+.grid4{
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:12px !important;
+}
+
+label{
+  min-width:0;
+}
+label input,
+label select,
+label textarea,
+.dialog-card input,
+.dialog-card select,
+.dialog-card textarea{
+  width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box;
+}
+
+.dialog-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px !important;
+  margin-top:18px !important;
+  padding-top:16px;
+  padding-bottom:20px;
+  border-top:1px solid var(--outline);
+  background:var(--surface);
+  position:sticky;
+  bottom:0;
+}
+.dialog-actions .btn,
+.dialog-actions button{
+  min-width:120px;
+}
+
+/* Botón X */
+.icon-btn{
+  flex:0 0 auto;
+}
+
+/* Ajustes específicos del modal Agregar producto */
+#productDialog .dialog-card{
+  width:min(900px, calc(100vw - 28px)) !important;
+  max-width:min(900px, calc(100vw - 28px)) !important;
+}
+#productForm .grid4 label{
+  text-align:left;
+}
+
+/* Evitar scroll horizontal feo */
+html, body{
+  overflow-x:hidden;
+}
+dialog, .dialog-card, .grid2, .grid4, label, input, select, textarea{
+  max-width:100%;
+}
+
+/* Tablet */
+@media (max-width: 900px){
+  .dialog-card{
+    width:min(760px, calc(100vw - 22px)) !important;
+    max-width:min(760px, calc(100vw - 22px)) !important;
+    max-height:90vh;
+    border-radius:24px;
+  }
+  #productDialog .dialog-card{
+    width:min(760px, calc(100vw - 22px)) !important;
+    max-width:min(760px, calc(100vw - 22px)) !important;
+  }
+  .grid4{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Móvil */
+@media (max-width: 640px){
+  dialog[open]{
+    align-items:flex-end;
+  }
+  .dialog-card{
+    width:calc(100vw - 10px) !important;
+    max-width:calc(100vw - 10px) !important;
+    max-height:92vh;
+    border-radius:24px 24px 0 0;
+  }
+  #productDialog .dialog-card{
+    width:calc(100vw - 10px) !important;
+    max-width:calc(100vw - 10px) !important;
+  }
+  .dialog-head{
+    padding:18px 16px 12px !important;
+  }
+  #productForm > .grid2,
+  #productForm > .grid4,
+  #productForm > label,
+  #productForm > .dialog-actions,
+  #editQtyForm > .mini-summary,
+  #editQtyForm > label,
+  #editQtyForm > .hint,
+  #editQtyForm > .notice,
+  #editQtyForm > .dialog-actions,
+  #createWeekForm > label,
+  #createWeekForm > .dialog-actions,
+  #digitalResponsibleForm > label,
+  #digitalResponsibleForm > .dialog-actions{
+    padding-left:16px;
+    padding-right:16px;
+  }
+  .grid2,
+  .grid4{
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+  .dialog-actions{
+    flex-direction:column-reverse;
+    align-items:stretch;
+  }
+  .dialog-actions .btn,
+  .dialog-actions button{
+    width:100%;
+    min-width:unset;
+  }
+}
+
+
+
+/* ==========================================
+   V36 - CAMPOS VISIBLES EN TODO EL SISTEMA
+   ========================================== */
+
+:root{
+  --field-bg:#ffffff;
+  --field-bg-soft:#f8fafc;
+  --field-border:#cfd6e4;
+  --field-border-strong:#b8c3d7;
+  --field-text:#111827;
+  --field-placeholder:#8a94a6;
+  --field-shadow:0 1px 2px rgba(16,24,40,.05);
+  --field-focus-shadow:0 0 0 4px rgba(67,85,199,.14);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+select,
+textarea{
+  appearance:none;
+  -webkit-appearance:none;
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  min-height:46px;
+  padding:12px 14px;
+  border-radius:16px;
+  border:1.5px solid var(--field-border) !important;
+  background:var(--field-bg) !important;
+  color:var(--field-text) !important;
+  box-shadow:var(--field-shadow);
+  outline:none;
+  transition:border-color .18s ease, box-shadow .18s ease, background-color .18s ease, transform .18s ease;
+}
+
+select{
+  padding-right:40px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #667085 50%),
+    linear-gradient(135deg, #667085 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% - 2px),
+    calc(100% - 15px) calc(50% - 2px);
+  background-size:5px 5px, 5px 5px;
+  background-repeat:no-repeat;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:var(--field-placeholder) !important;
+  opacity:1;
+}
+
+input:hover:not(:disabled):not([readonly]),
+select:hover:not(:disabled),
+textarea:hover:not(:disabled):not([readonly]){
+  border-color:var(--field-border-strong) !important;
+  background:var(--field-bg-soft) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--primary) !important;
+  background:#fff !important;
+  box-shadow:var(--field-shadow), var(--field-focus-shadow) !important;
+}
+
+input[readonly],
+textarea[readonly]{
+  background:#f5f7fb !important;
+  color:#5b6472 !important;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled{
+  background:#f3f5f9 !important;
+  color:#9aa4b2 !important;
+  border-color:#d7dde8 !important;
+  cursor:not-allowed;
+  box-shadow:none !important;
+}
+
+label{
+  color:#4f5666;
+  font-weight:700;
+}
+label small{
+  color:var(--muted);
+  font-weight:600;
+}
+
+/* Filas de formulario más claras */
+.grid2,
+.grid4{
+  align-items:end;
+}
+
+/* Asegurar que controles dentro de paneles y modales se vean igual */
+.panel input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.panel select,
+.panel textarea,
+.dialog-card input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.dialog-card select,
+.dialog-card textarea,
+.toolbar input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.toolbar select,
+.toolbar textarea{
+  background:var(--field-bg) !important;
+  border:1.5px solid var(--field-border) !important;
+}
+
+/* Input de búsqueda */
+.search,
+.search input,
+.topbar input[type="search"],
+.topbar input[type="text"]{
+  background:var(--field-bg-soft) !important;
+}
+
+/* Mejor visibilidad para campos numéricos pequeños */
+.no-spinner{
+  text-align:left;
+  font-weight:700;
+}
+
+/* Chips, acciones y fondos suaves se mantienen; solo mejoramos campos */
+@media (max-width: 640px){
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea{
+    min-height:44px;
+    padding:11px 13px;
+    border-radius:14px;
+  }
+}
+
+
+/* V37 - auditoría funcional */
+.locked-field{
+  background:#f2f4f8 !important;
+  color:#667085 !important;
+  cursor:not-allowed;
+}
+.diagnostics-card{
+  margin-top:16px;
+  border:1px solid var(--outline);
+  border-radius:20px;
+  padding:14px;
+  background:var(--surface);
+}
+.diagnostic-list{
+  display:grid;
+  gap:8px;
+}
+.diagnostic-row{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  border:1px solid var(--outline);
+  border-radius:14px;
+  padding:10px 12px;
+  background:var(--card);
+}
+.diagnostic-row>span{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  flex:0 0 auto;
+}
+.diagnostic-row div{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.diagnostic-row small{
+  color:var(--muted);
+}
+.diag-ok>span{
+  background:#e7f7ec;
+  color:#18794e;
+}
+.diag-warn>span{
+  background:#fff3d6;
+  color:#9a6700;
+}
+
+
+
+/* ==========================================================
+   V38 PROFESIONAL
+   Tablas, textos largos y campos editables responsivos
+   ========================================================== */
+
+/* Regla global de ajuste de texto */
+td, th, label, .detail-row, .setting, .tag, .chip,
+.panel p, .form-card p, .notice, .hint, .quick small,
+.menu-line, .menu-title, .diagnostic-row, .newcodes-note{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  white-space:normal;
+}
+
+/* Los códigos y catálogos largos pueden partirse sin deformar la tabla */
+td b,
+td strong,
+.detail-row strong,
+.mini-summary strong,
+[data-code],
+.code-text,
+.catalog-text{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  white-space:normal;
+  max-width:100%;
+}
+
+/* Tabla más limpia y profesional */
+.table-wrap{
+  width:100%;
+  overflow:auto;
+  border-radius:18px;
+  scrollbar-width:thin;
+}
+
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+}
+
+th{
+  position:relative;
+  vertical-align:middle;
+  line-height:1.25;
+  font-size:10px;
+  letter-spacing:.025em;
+  text-transform:uppercase;
+}
+
+td{
+  vertical-align:middle;
+  line-height:1.35;
+}
+
+/* Evitar que una sola descripción expanda exageradamente una columna */
+.inventory-table td:nth-child(4),
+.digital-table td:nth-child(4),
+.stockout-table td:nth-child(6),
+.newcodes-table td:nth-child(3){
+  min-width:170px;
+  max-width:340px;
+}
+
+.inventory-table td:nth-child(2),
+.inventory-table td:nth-child(3),
+.digital-table td:nth-child(2),
+.digital-table td:nth-child(3),
+.stockout-table td:nth-child(4),
+.stockout-table td:nth-child(5),
+.newcodes-table td:nth-child(1),
+.newcodes-table td:nth-child(2){
+  min-width:92px;
+  max-width:180px;
+}
+
+/* Campos editables dentro de tablas */
+table input:not([type="checkbox"]):not([type="radio"]),
+table select,
+table textarea{
+  min-height:40px !important;
+  height:40px;
+  border-radius:12px !important;
+  padding:8px 10px !important;
+  font-size:12px;
+  background:#fff !important;
+  border:1.5px solid #cfd6e4 !important;
+  box-shadow:none !important;
+}
+
+table input:focus,
+table select:focus,
+table textarea:focus{
+  border-color:var(--primary) !important;
+  box-shadow:0 0 0 3px rgba(67,85,199,.12) !important;
+}
+
+/* Conteo semanal */
+.weekly-table th:nth-child(6),
+.weekly-table td:nth-child(6),
+.weekly-table th:nth-child(9),
+.weekly-table td:nth-child(9){
+  min-width:150px;
+}
+
+.weekly-table input[data-weekly-physical]{
+  width:100%;
+  max-width:180px;
+  margin:auto;
+  text-align:center;
+  font-weight:800;
+}
+
+.weekly-table input[data-weekly-obs]{
+  width:100%;
+  min-width:150px;
+}
+
+/* Inventario Digital */
+.digital-table th:nth-child(7),
+.digital-table td:nth-child(7){
+  min-width:150px;
+}
+
+.digital-table th:nth-child(10),
+.digital-table td:nth-child(10){
+  min-width:170px;
+}
+
+.digital-table input[data-digital-physical]{
+  width:100%;
+  max-width:180px;
+  margin:auto;
+  text-align:center;
+  font-weight:800;
+}
+
+.digital-table input[data-digital-obs]{
+  width:100%;
+  min-width:160px;
+}
+
+/* Controles superiores de Inventario Digital */
+.digital-head{
+  gap:16px;
+}
+
+.digital-tools{
+  display:grid !important;
+  grid-template-columns:minmax(180px,1.1fr) minmax(190px,1.1fr) minmax(180px,.9fr) auto auto !important;
+  gap:10px !important;
+  align-items:center !important;
+  width:100%;
+}
+
+.digital-family-select{
+  min-width:0 !important;
+  width:100% !important;
+}
+
+.digital-search{
+  min-width:0 !important;
+  width:100%;
+}
+
+.digital-search input{
+  width:100% !important;
+}
+
+/* Responsable a la derecha sin ocupar demasiado */
+.responsible-btn{
+  justify-self:end;
+  max-width:260px;
+}
+
+/* Conteo Semanal: botones superiores más uniformes */
+.weekly-toolbar,
+.weekly-actions,
+.panel-head .actions{
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+/* Tarjetas y encabezados */
+.panel-head{
+  gap:14px;
+  align-items:flex-start;
+}
+
+.panel-head > div{
+  min-width:0;
+}
+
+.panel-head h2,
+.panel-head p{
+  max-width:100%;
+}
+
+/* Detalles de producto/movimientos con textos largos */
+.detail-row{
+  align-items:flex-start;
+}
+
+.detail-row span{
+  flex:0 0 34%;
+}
+
+.detail-row strong{
+  flex:1;
+  min-width:0;
+  text-align:right;
+}
+
+/* Formularios generales */
+input, select, textarea{
+  max-width:100%;
+}
+
+label{
+  min-width:0;
+}
+
+label > span,
+label > small,
+label{
+  overflow-wrap:anywhere;
+}
+
+/* Botones no deben estirar demasiado por texto */
+.btn, .toolbar-btn, .menu-line, .quick{
+  max-width:100%;
+}
+
+/* Códigos Nuevos */
+.pending-base-input,
+.pending-base-number{
+  width:100% !important;
+  min-width:0 !important;
+}
+
+.pending-desc{
+  min-width:180px !important;
+}
+
+/* PC mediano */
+@media (max-width: 1180px){
+  .digital-tools{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+  .digital-tools > *{
+    width:100%;
+    max-width:none;
+  }
+  .responsible-btn{
+    justify-self:stretch;
+  }
+}
+
+/* Tablet */
+@media (max-width: 820px){
+  .panel-head{
+    flex-direction:column;
+  }
+
+  .panel-head .actions,
+  .weekly-toolbar,
+  .weekly-actions{
+    width:100%;
+  }
+
+  .digital-tools{
+    grid-template-columns:1fr !important;
+  }
+
+  .digital-tools > *{
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  table{
+    min-width:860px;
+  }
+
+  .inventory-table,
+  .digital-table,
+  .weekly-table,
+  .stockout-table,
+  .newcodes-table{
+    min-width:960px;
+  }
+}
+
+/* Móvil */
+@media (max-width: 560px){
+  .table-wrap{
+    border-radius:14px;
+  }
+
+  th{
+    font-size:9px;
+  }
+
+  td{
+    font-size:11px;
+  }
+
+  table input:not([type="checkbox"]):not([type="radio"]),
+  table select,
+  table textarea{
+    min-height:38px !important;
+    height:38px;
+    border-radius:10px !important;
+    font-size:11px;
+  }
+}
+
+
+
+/* ==========================================================
+   V39 - Registrar salida compacto y profesional
+   ========================================================== */
+
+.compact-movement-panel{
+  padding:18px 20px !important;
+}
+
+.compact-movement-panel .panel-head{
+  margin-bottom:8px;
+}
+
+.compact-movement-panel .panel-head h2{
+  font-size:18px;
+  line-height:1.2;
+  margin-bottom:4px;
+}
+
+.compact-movement-panel .panel-head p{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.compact-movement-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.compact-movement-grid{
+  display:grid;
+  grid-template-columns:minmax(240px,1.4fr) minmax(170px,.7fr);
+  gap:12px 14px;
+  align-items:end;
+}
+
+.compact-movement-grid-secondary{
+  grid-template-columns:repeat(2,minmax(220px,1fr));
+}
+
+.compact-movement-panel label{
+  font-size:13px;
+  font-weight:800;
+  color:#495264;
+}
+
+.compact-movement-panel input,
+.compact-movement-panel select{
+  min-height:42px !important;
+  height:42px;
+  padding:10px 13px !important;
+  border-radius:14px !important;
+  font-size:14px;
+}
+
+.compact-movement-panel .hint,
+.compact-movement-panel small,
+.compact-movement-panel .search-help{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.compact-movement-actions{
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  gap:10px;
+  margin-top:2px;
+}
+
+.compact-movement-actions .btn,
+.compact-movement-actions button{
+  min-height:42px;
+  padding:10px 18px;
+  border-radius:16px;
+  font-size:14px;
+  font-weight:800;
+  min-width:unset;
+  width:auto;
+  box-shadow:0 10px 18px rgba(67,85,199,.14);
+}
+
+/* Reduce visual noise in autocomplete dropdown if present */
+.compact-movement-panel .suggestions,
+.compact-movement-panel .autocomplete-list{
+  margin-top:6px;
+  border-radius:14px;
+  max-height:220px;
+}
+
+/* Better proportion on wide screens */
+@media (min-width: 1200px){
+  .compact-movement-panel{
+    max-width:1120px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 900px){
+  .compact-movement-grid{
+    grid-template-columns:1fr 180px;
+  }
+  .compact-movement-grid-secondary{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px){
+  .compact-movement-panel{
+    padding:16px !important;
+  }
+  .compact-movement-grid,
+  .compact-movement-grid-secondary{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .compact-movement-panel input,
+  .compact-movement-panel select{
+    min-height:40px !important;
+    height:40px;
+    font-size:13px;
+  }
+  .compact-movement-actions{
+    justify-content:stretch;
+  }
+  .compact-movement-actions .btn,
+  .compact-movement-actions button{
+    width:100%;
+  }
+}
+
+
+
+/* ==========================================================
+   V40 RESPONSIVE ANDROID
+   PC / Laptop / Tablet / Android / iPhone
+   ========================================================== */
+
+:root{
+  --content-max:1600px;
+}
+
+html,body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+body{
+  min-width:0;
+}
+*{
+  box-sizing:border-box;
+}
+
+.main,
+main,
+.content,
+#content{
+  width:100%;
+  min-width:0;
+}
+
+#content{
+  max-width:var(--content-max);
+  margin-inline:auto;
+}
+
+.panel,
+.form-card,
+.digital-panel,
+.stockout-panel,
+.newcodes-panel,
+.tools-panel{
+  width:100%;
+  max-width:100%;
+}
+
+.topbar{
+  gap:12px;
+  flex-wrap:wrap;
+}
+.topbar > *{
+  min-width:0;
+}
+
+.table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:visible;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+}
+
+td,th,label,.detail-row,.setting,.tag,.chip,
+.panel p,.form-card p,.notice,.hint,.quick small,.menu-line{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.btn,.toolbar-btn,.icon-btn,.nav,.bottom,.quick,.mini-action{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.btn,.toolbar-btn{
+  min-height:42px;
+}
+.icon-btn,.mini-action{
+  min-width:40px;
+  min-height:40px;
+}
+
+/* Android/iPhone: evita zoom al enfocar */
+input,select,textarea{
+  max-width:100%;
+}
+@media (max-width:700px){
+  input,select,textarea{
+    font-size:16px !important;
+  }
+}
+
+/* Pantalla mediana */
+@media (max-width:1100px){
+  .sidebar{
+    width:220px;
+  }
+
+  .quick-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+
+  .digital-tools{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+
+  .panel,
+  .form-card{
+    border-radius:20px;
+  }
+}
+
+/* Tablet / Android horizontal */
+@media (max-width:820px){
+  body{
+    padding-bottom:78px;
+  }
+
+  .sidebar{
+    position:fixed !important;
+    top:0;
+    left:0;
+    bottom:0;
+    width:min(82vw,300px) !important;
+    z-index:120;
+    transform:translateX(-105%);
+    transition:transform .22s ease;
+    border-radius:0 24px 24px 0;
+    box-shadow:0 18px 50px rgba(0,0,0,.22);
+  }
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main,
+  main{
+    margin-left:0 !important;
+    width:100% !important;
+    padding:12px !important;
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:35;
+    padding:8px 0 12px;
+    background:var(--bg);
+  }
+
+  #pageTitle{
+    font-size:clamp(24px,6vw,34px);
+  }
+
+  .panel,
+  .form-card{
+    padding:14px !important;
+    border-radius:18px !important;
+  }
+
+  .panel-head{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .panel-head .actions,
+  .digital-tools,
+  .weekly-toolbar,
+  .weekly-actions{
+    width:100%;
+  }
+
+  .quick-grid,
+  .digital-tools,
+  .form-grid,
+  .grid2,
+  .grid4,
+  .compact-movement-grid,
+  .compact-movement-grid-secondary{
+    grid-template-columns:1fr !important;
+  }
+
+  .digital-tools > *{
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  .responsible-btn{
+    justify-self:stretch !important;
+  }
+
+  table,
+  .inventory-table,
+  .digital-table,
+  .weekly-table,
+  .stockout-table,
+  .newcodes-table{
+    min-width:900px;
+  }
+
+  .bottom-nav{
+    display:grid !important;
+    grid-template-columns:repeat(5,1fr);
+    position:fixed;
+    left:8px;
+    right:8px;
+    bottom:max(8px, env(safe-area-inset-bottom));
+    z-index:110;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(18px);
+    border:1px solid var(--outline);
+    border-radius:20px;
+    box-shadow:0 14px 35px rgba(15,23,42,.18);
+    overflow:hidden;
+    padding:4px;
+  }
+
+  .bottom{
+    min-height:56px;
+    border-radius:15px;
+    padding:6px 4px;
+  }
+
+  .bottom span{
+    font-size:18px;
+  }
+
+  .bottom small{
+    font-size:10px;
+  }
+
+  dialog[open]{
+    align-items:flex-end !important;
+  }
+
+  .dialog-card{
+    width:calc(100vw - 10px) !important;
+    max-width:calc(100vw - 10px) !important;
+    max-height:92dvh !important;
+    border-radius:24px 24px 0 0 !important;
+  }
+}
+
+/* Android/iPhone vertical */
+@media (max-width:560px){
+  body{
+    font-size:14px;
+  }
+
+  .main,
+  main{
+    padding:8px !important;
+  }
+
+  .topbar{
+    gap:8px;
+  }
+
+  .topbar .search,
+  .topbar input{
+    width:100% !important;
+  }
+
+  #pageTitle{
+    font-size:26px;
+    line-height:1.08;
+  }
+
+  .panel,
+  .form-card{
+    padding:12px !important;
+    border-radius:16px !important;
+  }
+
+  .panel-head h2,
+  .form-card h2{
+    font-size:18px;
+  }
+
+  .panel-head p,
+  .form-card p{
+    font-size:12px;
+  }
+
+  .actions,
+  .weekly-toolbar,
+  .weekly-actions,
+  .digital-tools{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+
+  .btn,
+  .toolbar-btn{
+    width:100%;
+    justify-content:center;
+    min-height:44px;
+  }
+
+  .quick{
+    min-height:96px;
+    padding:14px;
+  }
+
+  input,select,textarea{
+    min-height:46px !important;
+    border-radius:14px !important;
+    font-size:16px !important;
+  }
+
+  .weekly-table input[data-weekly-physical],
+  .digital-table input[data-digital-physical]{
+    min-width:120px;
+  }
+
+  .weekly-table input[data-weekly-obs],
+  .digital-table input[data-digital-obs]{
+    min-width:160px;
+  }
+
+  .detail-row{
+    flex-direction:column;
+    gap:4px;
+  }
+
+  .detail-row span,
+  .detail-row strong{
+    width:100%;
+    flex:auto;
+    text-align:left;
+  }
+
+  .toast{
+    width:calc(100vw - 24px);
+    max-width:none;
+    text-align:center;
+    bottom:88px;
+  }
+
+  .drop-menu,
+  .digital-filter-menu{
+    width:min(94vw,360px) !important;
+    max-width:calc(100vw - 20px) !important;
+    right:0 !important;
+    left:auto !important;
+  }
+
+  .compact-movement-actions .btn,
+  .compact-movement-actions button{
+    width:100%;
+  }
+}
+
+@media (max-width:380px){
+  .main,
+  main{
+    padding:6px !important;
+  }
+  .panel,
+  .form-card{
+    padding:10px !important;
+  }
+  #pageTitle{
+    font-size:23px;
+  }
+  .bottom small{
+    font-size:9px;
+  }
+}
+
+@media (min-width:1500px){
+  #content{
+    max-width:1500px;
+  }
+  .panel,
+  .form-card{
+    padding:20px 22px;
+  }
+}
+
+
+
+/* ==========================================================
+   V44 - TABLA CORREGIDA Y PROFESIONAL
+   ========================================================== */
+
+.inventory-table-wrap{
+  width:100%;
+  overflow-x:auto;
+  overflow-y:visible;
+  border-radius:18px;
+  background:var(--surface);
+  -webkit-overflow-scrolling:touch;
+  border:1px solid var(--outline);
+}
+
+.inventory-table{
+  display:table !important;
+  width:100%;
+  min-width:1120px;
+  table-layout:fixed;
+  border-collapse:separate;
+  border-spacing:0;
+  background:var(--surface);
+}
+
+.inventory-table col.col-action{width:64px}
+.inventory-table col.col-code{width:145px}
+.inventory-table col.col-catalog{width:155px}
+.inventory-table col.col-description{width:300px}
+.inventory-table col.col-family{width:95px}
+.inventory-table col.col-stock{width:72px}
+.inventory-table col.col-min{width:68px}
+.inventory-table col.col-max{width:68px}
+.inventory-table col.col-location{width:105px}
+.inventory-table col.col-reorder{width:95px}
+.inventory-table col.col-status{width:125px}
+
+.inventory-table thead{
+  display:table-header-group !important;
+}
+
+.inventory-table tbody{
+  display:table-row-group !important;
+}
+
+.inventory-table tr{
+  display:table-row !important;
+}
+
+.inventory-table th,
+.inventory-table td{
+  display:table-cell !important;
+  vertical-align:middle;
+  padding:11px 12px;
+  border-bottom:1px solid var(--card2);
+  text-align:left;
+  font-size:12px;
+  line-height:1.3;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.inventory-table th{
+  background:var(--card2);
+  color:var(--muted);
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+
+.inventory-table th:first-child{
+  border-top-left-radius:16px;
+}
+.inventory-table th:last-child{
+  border-top-right-radius:16px;
+}
+
+.inventory-table tbody tr:last-child td{
+  border-bottom:0;
+}
+
+.inventory-table tbody tr:hover td{
+  background:rgba(67,85,199,.035);
+}
+
+/* Alineaciones */
+.inventory-table th:nth-child(1),
+.inventory-table td:nth-child(1),
+.inventory-table th:nth-child(6),
+.inventory-table td:nth-child(6),
+.inventory-table th:nth-child(7),
+.inventory-table td:nth-child(7),
+.inventory-table th:nth-child(8),
+.inventory-table td:nth-child(8),
+.inventory-table th:nth-child(10),
+.inventory-table td:nth-child(10),
+.inventory-table th:nth-child(11),
+.inventory-table td:nth-child(11){
+  text-align:center;
+}
+
+.inventory-table td:nth-child(2){
+  font-weight:800;
+}
+
+.inventory-table td:nth-child(4){
+  line-height:1.35;
+}
+
+.inventory-table .table-actions{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.inventory-table .mini-action{
+  width:34px;
+  height:34px;
+  min-width:34px;
+  min-height:34px;
+  border-radius:11px;
+}
+
+/* Estado siempre legible */
+.inventory-table .chip{
+  white-space:nowrap;
+  min-width:78px;
+}
+
+/* Paneles */
+.inventory-panel,
+.attention-panel{
+  overflow:hidden;
+}
+
+.inventory-panel .panel-head,
+.attention-panel .panel-head{
+  margin-bottom:12px;
+}
+
+/* Responsive */
+@media (max-width:820px){
+  .inventory-table{
+    min-width:1080px;
+  }
+
+  .inventory-table-wrap{
+    scrollbar-width:thin;
+  }
+}
+
+@media (max-width:560px){
+  .inventory-table{
+    min-width:1020px;
+  }
+
+  .inventory-table th,
+  .inventory-table td{
+    padding:9px 10px;
+    font-size:11px;
+  }
+
+  .inventory-table th{
+    font-size:9px;
+  }
+}
+
+
+
+/* ==========================================================
+   V46 - MENÚ FIJO EN PC SIN COMPRIMIR EL CONTENIDO
+   ========================================================== */
+
+/* PC / laptop */
+@media (min-width:821px){
+
+  /* IMPORTANTE:
+     Cuando sidebar es fixed, la app deja de usar las 2 columnas originales.
+     Así evitamos reservar el ancho del menú dos veces. */
+  .app{
+    display:block !important;
+    min-height:100dvh;
+    width:100%;
+  }
+
+  .sidebar{
+    position:fixed !important;
+    top:0;
+    left:0;
+    bottom:0;
+    width:260px !important;
+    height:100dvh !important;
+    z-index:80;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:20px 14px;
+    border-radius:0 28px 28px 0;
+  }
+
+  .main,
+  main.main{
+    margin-left:260px !important;
+    width:auto !important;
+    min-width:0 !important;
+    min-height:100dvh;
+  }
+
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:40;
+    width:100%;
+  }
+
+  .content,
+  #content{
+    width:100% !important;
+    max-width:1500px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+
+  .bottom-nav{
+    display:none !important;
+  }
+
+  .scrim{
+    display:none !important;
+  }
+
+  .mobile-only{
+    display:none !important;
+  }
+}
+
+/* Laptop más estrecha */
+@media (min-width:821px) and (max-width:1100px){
+  .sidebar{
+    width:230px !important;
+  }
+
+  .main,
+  main.main{
+    margin-left:230px !important;
+  }
+
+  .content,
+  #content{
+    padding-left:18px !important;
+    padding-right:18px !important;
+  }
+}
+
+/* Android / tablet: conserva el drawer móvil original */
+@media (max-width:820px){
+  .app{
+    display:block !important;
+    width:100%;
+  }
+
+  .main,
+  main.main{
+    margin-left:0 !important;
+    width:100% !important;
+  }
+}
+
+
+/* V47 - Diferencias persistentes */
+.difference-tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.persistent-differences-table{
+  min-width:1450px;
+}
+.persistent-differences-table small{
+  color:var(--muted);
+}
+@media(max-width:820px){
+  .difference-tabs{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .difference-tabs .btn{
+    width:100%;
+  }
+}
+
+
+/* V48 - respaldo de diferencias */
+.difference-backup-warning{
+  font-weight:800;
+}
+
+
+/* V49 - Historial Conteo Semanal */
+.weekly-head-actions{
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-end;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.weekly-view-tabs{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+.weekly-history-controls{
+  display:grid;
+  grid-template-columns:minmax(280px,1fr) auto;
+  gap:12px;
+  align-items:end;
+  margin-bottom:14px;
+}
+.weekly-history-summary{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:14px;
+}
+.weekly-history-summary>div{
+  border:1px solid var(--outline);
+  border-radius:14px;
+  padding:10px 12px;
+  background:var(--card);
+  min-width:0;
+}
+.weekly-history-summary small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:3px;
+}
+.weekly-history-summary b{
+  overflow-wrap:anywhere;
+}
+.weekly-history-table{
+  min-width:1080px;
+}
+@media(max-width:1100px){
+  .weekly-history-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:820px){
+  .weekly-head-actions{width:100%}
+  .weekly-view-tabs{width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .weekly-view-tabs .btn{width:100%}
+  .weekly-history-controls{grid-template-columns:1fr}
+  .weekly-history-controls .actions{display:grid;grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .weekly-history-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+
+
+/* ==========================================================
+   V52 - CÓDIGO / CATÁLOGO / DESCRIPCIÓN EN UNA SOLA LÍNEA
+   Texto completo, sin puntos suspensivos.
+   ========================================================== */
+
+/* Las tablas pueden crecer horizontalmente para mostrar TODO el texto. */
+.table-wrap{
+  overflow-x:auto !important;
+  overflow-y:visible;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Evitar que las tablas fuercen textos largos a partirse. */
+.inventory-table,
+.weekly-table,
+.digital-table,
+.differences-digital-table,
+.stockout-table,
+.newcodes-table,
+.movement-table{
+  table-layout:auto !important;
+  width:max-content !important;
+  min-width:100% !important;
+}
+
+/* Inventario: Código, Catálogo, Descripción */
+.inventory-table th:nth-child(2),
+.inventory-table td:nth-child(2),
+.inventory-table th:nth-child(3),
+.inventory-table td:nth-child(3),
+.inventory-table th:nth-child(4),
+.inventory-table td:nth-child(4),
+
+/* Conteo Semanal e Historial semanal */
+.weekly-table th:nth-child(1),
+.weekly-table td:nth-child(1),
+.weekly-table th:nth-child(2),
+.weekly-table td:nth-child(2),
+.weekly-table th:nth-child(3),
+.weekly-table td:nth-child(3),
+
+/* Inventario Digital */
+.digital-table th:nth-child(2),
+.digital-table td:nth-child(2),
+.digital-table th:nth-child(3),
+.digital-table td:nth-child(3),
+.digital-table th:nth-child(4),
+.digital-table td:nth-child(4),
+
+/* Diferencias */
+.differences-digital-table th:nth-child(5),
+.differences-digital-table td:nth-child(5),
+.differences-digital-table th:nth-child(6),
+.differences-digital-table td:nth-child(6),
+.differences-digital-table th:nth-child(7),
+.differences-digital-table td:nth-child(7),
+
+/* Sin Existencia */
+.stockout-table th:nth-child(4),
+.stockout-table td:nth-child(4),
+.stockout-table th:nth-child(5),
+.stockout-table td:nth-child(5),
+.stockout-table th:nth-child(6),
+.stockout-table td:nth-child(6),
+
+/* Códigos Nuevos */
+.newcodes-table th:nth-child(1),
+.newcodes-table td:nth-child(1),
+.newcodes-table th:nth-child(2),
+.newcodes-table td:nth-child(2),
+.newcodes-table th:nth-child(3),
+.newcodes-table td:nth-child(3),
+
+/* Control de Salida: Código */
+.movement-table th:nth-child(2),
+.movement-table td:nth-child(2){
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  max-width:none !important;
+}
+
+/* Quitar límites antiguos que hacían que descripción/código se partieran. */
+.inventory-table td:nth-child(2),
+.inventory-table td:nth-child(3),
+.inventory-table td:nth-child(4),
+.weekly-table td:nth-child(1),
+.weekly-table td:nth-child(2),
+.weekly-table td:nth-child(3),
+.digital-table td:nth-child(2),
+.digital-table td:nth-child(3),
+.digital-table td:nth-child(4),
+.stockout-table td:nth-child(4),
+.stockout-table td:nth-child(5),
+.stockout-table td:nth-child(6),
+.newcodes-table td:nth-child(1),
+.newcodes-table td:nth-child(2),
+.newcodes-table td:nth-child(3){
+  min-width:max-content !important;
+  width:auto !important;
+}
+
+/* Un poco de espacio para que las columnas no se peguen. */
+.inventory-table td:nth-child(4),
+.weekly-table td:nth-child(3),
+.digital-table td:nth-child(4),
+.differences-digital-table td:nth-child(7),
+.stockout-table td:nth-child(6),
+.newcodes-table td:nth-child(3){
+  padding-right:22px !important;
+}
+
+/* En móvil mantenemos exactamente la misma regla:
+   una línea completa + desplazamiento horizontal. */
+@media(max-width:820px){
+  .table-wrap{
+    scrollbar-width:thin;
+  }
+
+  .inventory-table,
+  .weekly-table,
+  .digital-table,
+  .differences-digital-table,
+  .stockout-table,
+  .newcodes-table,
+  .movement-table{
+    width:max-content !important;
+    min-width:100% !important;
+  }
+}
+
+
+
+/* ==========================================================
+   V53 - CONTEO SEMANAL MÁS COMPACTO
+   Reduce espacios entre Familia / Exist. / Físico
+   ========================================================== */
+
+/* Mantener texto principal en una línea, pero con columnas operativas compactas */
+.weekly-table{
+  width:max-content !important;
+  min-width:100% !important;
+}
+
+/* Familia */
+.weekly-table th:nth-child(4),
+.weekly-table td:nth-child(4){
+  width:82px !important;
+  min-width:82px !important;
+  max-width:82px !important;
+  padding-left:10px !important;
+  padding-right:10px !important;
+  text-align:left;
+}
+
+/* Existencia */
+.weekly-table th:nth-child(5),
+.weekly-table td:nth-child(5){
+  width:68px !important;
+  min-width:68px !important;
+  max-width:68px !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+  text-align:center !important;
+}
+
+/* Físico */
+.weekly-table th:nth-child(6),
+.weekly-table td:nth-child(6){
+  width:118px !important;
+  min-width:118px !important;
+  max-width:118px !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+  text-align:center !important;
+}
+
+/* Cuadro donde se escribe el físico */
+.weekly-table input[data-weekly-physical]{
+  width:82px !important;
+  min-width:82px !important;
+  max-width:82px !important;
+  height:34px !important;
+  min-height:34px !important;
+  padding:6px 8px !important;
+  margin:0 auto !important;
+  border-radius:11px !important;
+  text-align:center !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+}
+
+/* Dif. */
+.weekly-table th:nth-child(7),
+.weekly-table td:nth-child(7){
+  width:58px !important;
+  min-width:58px !important;
+  max-width:58px !important;
+  text-align:center !important;
+  padding-left:6px !important;
+  padding-right:6px !important;
+}
+
+/* Estado */
+.weekly-table th:nth-child(8),
+.weekly-table td:nth-child(8){
+  width:92px !important;
+  min-width:92px !important;
+  max-width:92px !important;
+  text-align:center !important;
+  padding-left:6px !important;
+  padding-right:6px !important;
+}
+
+/* Observación un poco más controlada */
+.weekly-table th:nth-child(9),
+.weekly-table td:nth-child(9){
+  width:150px !important;
+  min-width:150px !important;
+  max-width:150px !important;
+}
+
+.weekly-table input[data-weekly-obs]{
+  width:132px !important;
+  min-width:132px !important;
+  max-width:132px !important;
+  height:34px !important;
+  min-height:34px !important;
+  padding:6px 9px !important;
+  border-radius:11px !important;
+  font-size:12px !important;
+}
+
+/* Filas un poco más compactas */
+.weekly-table tbody td{
+  padding-top:7px !important;
+  padding-bottom:7px !important;
+}
+
+/* Android / pantallas pequeñas */
+@media(max-width:820px){
+  .weekly-table th:nth-child(4),
+  .weekly-table td:nth-child(4){
+    width:72px !important;
+    min-width:72px !important;
+    max-width:72px !important;
+  }
+
+  .weekly-table th:nth-child(5),
+  .weekly-table td:nth-child(5){
+    width:58px !important;
+    min-width:58px !important;
+    max-width:58px !important;
+  }
+
+  .weekly-table th:nth-child(6),
+  .weekly-table td:nth-child(6){
+    width:104px !important;
+    min-width:104px !important;
+    max-width:104px !important;
+  }
+
+  .weekly-table input[data-weekly-physical]{
+    width:76px !important;
+    min-width:76px !important;
+    max-width:76px !important;
+    height:36px !important;
+    min-height:36px !important;
+    font-size:14px !important;
+  }
+
+  .weekly-table th:nth-child(9),
+  .weekly-table td:nth-child(9){
+    width:138px !important;
+    min-width:138px !important;
+    max-width:138px !important;
+  }
+
+  .weekly-table input[data-weekly-obs]{
+    width:120px !important;
+    min-width:120px !important;
+    max-width:120px !important;
+    height:36px !important;
+    min-height:36px !important;
+    font-size:14px !important;
+  }
+}
+
+
+
+/* ==========================================================
+   V54 - INVENTARIO EN UNA SOLA LÍNEA REAL
+   Código, Catálogo y Descripción completos, sin partirse.
+   ========================================================== */
+
+.inventory-table-wrap{
+  overflow-x:auto !important;
+  overflow-y:visible !important;
+  -webkit-overflow-scrolling:touch !important;
+}
+
+.inventory-table{
+  table-layout:auto !important;
+  width:max-content !important;
+  min-width:1380px !important;
+  max-width:none !important;
+}
+
+/* Ancho profesional para las columnas largas */
+.inventory-table col.col-action{width:64px !important}
+.inventory-table col.col-code{width:220px !important}
+.inventory-table col.col-catalog{width:220px !important}
+.inventory-table col.col-description{width:420px !important}
+.inventory-table col.col-family{width:90px !important}
+.inventory-table col.col-stock{width:68px !important}
+.inventory-table col.col-min{width:66px !important}
+.inventory-table col.col-max{width:66px !important}
+.inventory-table col.col-location{width:100px !important}
+.inventory-table col.col-reorder{width:90px !important}
+.inventory-table col.col-status{width:120px !important}
+
+/* Regla exacta: una sola línea + texto completo + sin ellipsis */
+.inventory-table th:nth-child(2),
+.inventory-table td:nth-child(2),
+.inventory-table th:nth-child(3),
+.inventory-table td:nth-child(3),
+.inventory-table th:nth-child(4),
+.inventory-table td:nth-child(4){
+  white-space:nowrap !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  text-overflow:clip !important;
+  overflow:visible !important;
+  min-width:max-content !important;
+  max-width:none !important;
+  line-height:1.2 !important;
+}
+
+/* Un poco de aire visual sin romper la línea */
+.inventory-table td:nth-child(2),
+.inventory-table td:nth-child(3),
+.inventory-table td:nth-child(4){
+  padding-top:12px !important;
+  padding-bottom:12px !important;
+  padding-right:18px !important;
+  vertical-align:middle !important;
+}
+
+/* Mantener el resto estable */
+.inventory-table th,
+.inventory-table td{
+  hyphens:none !important;
+}
+
+/* Android / móvil:
+   sigue en una línea y la tabla se desplaza horizontalmente. */
+@media (max-width:820px){
+  .inventory-table{
+    min-width:1280px !important;
+  }
+
+  .inventory-table col.col-code{width:205px !important}
+  .inventory-table col.col-catalog{width:205px !important}
+  .inventory-table col.col-description{width:390px !important}
+
+  .inventory-table th,
+  .inventory-table td{
+    padding:10px 10px !important;
+    font-size:11px !important;
+  }
+
+  .inventory-table th{
+    font-size:10px !important;
+  }
+}
+
+@media (max-width:560px){
+  .inventory-table{
+    min-width:1220px !important;
+  }
+
+  .inventory-table col.col-code{width:195px !important}
+  .inventory-table col.col-catalog{width:195px !important}
+  .inventory-table col.col-description{width:360px !important}
+}
+
+
+
+/* ==========================================================
+   V55 - ESPACIOS MÁS COMPACTOS EN PC
+   1) Descripción más cerca de Familia
+   2) Contenido más cerca del menú fijo
+   ========================================================== */
+
+/* ---------- INVENTARIO ---------- */
+/* Mantener texto completo en una línea, pero sin reservar tanto espacio vacío. */
+.inventory-table{
+  min-width:1240px !important;
+}
+
+/* Código / Catálogo siguen cómodos */
+.inventory-table col.col-code{
+  width:190px !important;
+}
+.inventory-table col.col-catalog{
+  width:185px !important;
+}
+
+/* Descripción: antes 420px; ahora base mucho más compacta.
+   Si el texto es largo, table-layout:auto la expande automáticamente. */
+.inventory-table col.col-description{
+  width:280px !important;
+}
+
+/* Familia más estrecha y más cerca de Descripción */
+.inventory-table col.col-family{
+  width:68px !important;
+}
+
+.inventory-table th:nth-child(4),
+.inventory-table td:nth-child(4){
+  padding-right:10px !important;
+}
+
+.inventory-table th:nth-child(5),
+.inventory-table td:nth-child(5){
+  padding-left:8px !important;
+  padding-right:8px !important;
+  min-width:68px !important;
+}
+
+/* Reducir ligeramente espacios horizontales generales de Inventario */
+.inventory-table th,
+.inventory-table td{
+  padding-left:10px !important;
+  padding-right:10px !important;
+}
+
+/* Regla V54 se mantiene:
+   Código, Catálogo y Descripción completos en una sola línea. */
+.inventory-table th:nth-child(2),
+.inventory-table td:nth-child(2),
+.inventory-table th:nth-child(3),
+.inventory-table td:nth-child(3),
+.inventory-table th:nth-child(4),
+.inventory-table td:nth-child(4){
+  white-space:nowrap !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  text-overflow:clip !important;
+  overflow:visible !important;
+  max-width:none !important;
+}
+
+/* ---------- MENÚ FIJO EN PC ---------- */
+@media (min-width:821px){
+
+  /* Menú más compacto */
+  .sidebar{
+    width:218px !important;
+    padding-left:10px !important;
+    padding-right:10px !important;
+  }
+
+  /* El contenido comienza inmediatamente después del menú */
+  .main,
+  main.main{
+    margin-left:218px !important;
+  }
+
+  /* Menos espacio vacío entre menú, encabezado y tarjetas */
+  .topbar{
+    padding-left:14px !important;
+    padding-right:14px !important;
+  }
+
+  .content,
+  #content{
+    max-width:none !important;
+    width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    padding-left:12px !important;
+    padding-right:14px !important;
+  }
+
+  .panel,
+  .form-card{
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+}
+
+/* Laptop */
+@media (min-width:821px) and (max-width:1100px){
+  .sidebar{
+    width:205px !important;
+  }
+
+  .main,
+  main.main{
+    margin-left:205px !important;
+  }
+
+  .content,
+  #content{
+    padding-left:10px !important;
+    padding-right:10px !important;
+  }
+
+  .inventory-table{
+    min-width:1180px !important;
+  }
+
+  .inventory-table col.col-code{
+    width:180px !important;
+  }
+
+  .inventory-table col.col-catalog{
+    width:175px !important;
+  }
+
+  .inventory-table col.col-description{
+    width:260px !important;
+  }
+}
+
+/* Android/tablet: NO reducir el drawer.
+   Solo compactamos tabla y dejamos scroll horizontal. */
+@media (max-width:820px){
+  .inventory-table{
+    min-width:1140px !important;
+  }
+
+  .inventory-table col.col-code{
+    width:175px !important;
+  }
+
+  .inventory-table col.col-catalog{
+    width:170px !important;
+  }
+
+  .inventory-table col.col-description{
+    width:250px !important;
+  }
+
+  .inventory-table col.col-family{
+    width:64px !important;
+  }
+
+  .inventory-table th,
+  .inventory-table td{
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+}
+
+@media (max-width:560px){
+  .inventory-table{
+    min-width:1100px !important;
+  }
+
+  .inventory-table col.col-code{
+    width:165px !important;
+  }
+
+  .inventory-table col.col-catalog{
+    width:160px !important;
+  }
+
+  .inventory-table col.col-description{
+    width:235px !important;
+  }
+}
+
+
+
+/* ==========================================================
+   V56 - INVENTARIO EXPANDIDO
+   Ocupa mejor el ancho útil: más espacio para Código, Catálogo
+   y Descripción, reduciendo el hueco al lado derecho.
+   ========================================================== */
+
+/* Solo escritorio / laptop */
+@media (min-width:821px){
+  .inventory-table-wrap{
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+  }
+
+  .inventory-table{
+    width:100% !important;
+    min-width:1460px !important;
+    table-layout:auto !important;
+  }
+
+  /* Dar más espacio útil a las columnas importantes */
+  .inventory-table col.col-code{width:235px !important}
+  .inventory-table col.col-catalog{width:220px !important}
+  .inventory-table col.col-description{width:420px !important}
+  .inventory-table col.col-family{width:72px !important}
+  .inventory-table col.col-stock{width:64px !important}
+  .inventory-table col.col-min{width:58px !important}
+  .inventory-table col.col-max{width:58px !important}
+  .inventory-table col.col-location{width:88px !important}
+  .inventory-table col.col-reorder{width:82px !important}
+  .inventory-table col.col-status{width:118px !important}
+
+  /* Una sola línea + sin recortes en las columnas largas */
+  .inventory-table th:nth-child(2),
+  .inventory-table td:nth-child(2),
+  .inventory-table th:nth-child(3),
+  .inventory-table td:nth-child(3),
+  .inventory-table th:nth-child(4),
+  .inventory-table td:nth-child(4){
+    white-space:nowrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    text-overflow:clip !important;
+    overflow:visible !important;
+    max-width:none !important;
+  }
+
+  /* Compactar un poco las demás columnas para liberar ancho útil */
+  .inventory-table th,
+  .inventory-table td{
+    padding-left:9px !important;
+    padding-right:9px !important;
+  }
+
+  .inventory-table th:nth-child(4),
+  .inventory-table td:nth-child(4){
+    padding-right:8px !important;
+  }
+
+  .inventory-table th:nth-child(5),
+  .inventory-table td:nth-child(5){
+    padding-left:6px !important;
+    padding-right:6px !important;
+  }
+}
+
+/* Tablet y Android: se conserva una sola línea y scroll horizontal,
+   pero con anchos un poco más cómodos para las 3 columnas principales. */
+@media (max-width:820px){
+  .inventory-table{
+    min-width:1180px !important;
+  }
+
+  .inventory-table col.col-code{width:200px !important}
+  .inventory-table col.col-catalog{width:185px !important}
+  .inventory-table col.col-description{width:320px !important}
+  .inventory-table col.col-family{width:64px !important}
+
+  .inventory-table th:nth-child(2),
+  .inventory-table td:nth-child(2),
+  .inventory-table th:nth-child(3),
+  .inventory-table td:nth-child(3),
+  .inventory-table th:nth-child(4),
+  .inventory-table td:nth-child(4){
+    white-space:nowrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    text-overflow:clip !important;
+    overflow:visible !important;
+    max-width:none !important;
+  }
+}
+
+
+
+/* ==========================================================
+   V57 - TABLET / CELULAR
+   Inventario: Acc. + Código permanecen fijos al deslizar.
+   ========================================================== */
+@media (max-width:820px){
+  .inventory-table-wrap{
+    position:relative;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    -webkit-overflow-scrolling:touch;
+    isolation:isolate;
+  }
+
+  /* Primera columna: Acc. */
+  .inventory-table th:nth-child(1),
+  .inventory-table td:nth-child(1){
+    position:sticky !important;
+    left:0 !important;
+    width:58px !important;
+    min-width:58px !important;
+    max-width:58px !important;
+    z-index:8 !important;
+    background:var(--surface) !important;
+  }
+
+  .inventory-table thead th:nth-child(1){
+    z-index:12 !important;
+    background:var(--card2) !important;
+  }
+
+  /* Segunda columna: Código */
+  .inventory-table th:nth-child(2),
+  .inventory-table td:nth-child(2){
+    position:sticky !important;
+    left:58px !important;
+    z-index:7 !important;
+    background:var(--surface) !important;
+    white-space:nowrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    text-overflow:clip !important;
+    overflow:visible !important;
+  }
+
+  .inventory-table thead th:nth-child(2){
+    z-index:11 !important;
+    background:var(--card2) !important;
+  }
+
+  /* Sombra que indica que el resto de la tabla puede deslizarse */
+  .inventory-table th:nth-child(2),
+  .inventory-table td:nth-child(2){
+    box-shadow:8px 0 12px -11px rgba(15,23,42,.75);
+  }
+
+  /* Hover mantiene fondo en columnas fijas */
+  .inventory-table tbody tr:hover td:nth-child(1),
+  .inventory-table tbody tr:hover td:nth-child(2){
+    background:var(--surface) !important;
+  }
+}
+
+@media (max-width:560px){
+  .inventory-table th:nth-child(1),
+  .inventory-table td:nth-child(1){
+    width:54px !important;
+    min-width:54px !important;
+    max-width:54px !important;
+  }
+
+  .inventory-table th:nth-child(2),
+  .inventory-table td:nth-child(2){
+    left:54px !important;
+  }
+}
+
+/* ==========================================================
+   V58 - MENÚ MÓVIL / TABLET PROFESIONAL
+   Drawer con iconos + nombres visibles en todos los tamaños móviles.
+   ========================================================== */
+.drawer-close{display:none}
+
+@media (max-width:820px){
+  /* El drawer móvil nunca hereda el modo "solo iconos" de laptop. */
+  .sidebar{
+    width:min(88vw,318px) !important;
+    max-width:318px !important;
+    padding:14px 12px 18px !important;
+    align-items:stretch !important;
+    background:var(--card) !important;
+    border-radius:0 26px 26px 0 !important;
+    box-shadow:18px 0 48px rgba(20,20,35,.18) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+  }
+
+  .sidebar .brand{
+    position:sticky !important;
+    top:-14px !important;
+    z-index:4 !important;
+    display:grid !important;
+    grid-template-columns:48px minmax(0,1fr) 40px !important;
+    align-items:center !important;
+    gap:11px !important;
+    min-height:76px !important;
+    padding:14px 5px 13px !important;
+    margin-bottom:8px !important;
+    background:var(--card) !important;
+    border-bottom:1px solid var(--outline) !important;
+  }
+
+  .sidebar .brand-icon{
+    width:46px !important;
+    height:46px !important;
+    border-radius:15px !important;
+    font-size:21px !important;
+  }
+
+  .sidebar .brand-copy,
+  .sidebar .brand>div:last-of-type,
+  .sidebar .brand div:last-child{
+    display:block !important;
+    min-width:0 !important;
+  }
+
+  .sidebar .brand strong{
+    display:block !important;
+    font-size:17px !important;
+    line-height:1.15 !important;
+    color:var(--text) !important;
+  }
+
+  .sidebar .brand small{
+    display:block !important;
+    margin-top:4px !important;
+    font-size:11px !important;
+    color:var(--muted) !important;
+  }
+
+  .drawer-close{
+    display:grid !important;
+    place-items:center !important;
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    min-height:38px !important;
+    padding:0 !important;
+    border:1px solid var(--outline) !important;
+    border-radius:13px !important;
+    background:var(--surface) !important;
+    color:var(--text) !important;
+    font-size:24px !important;
+    line-height:1 !important;
+    cursor:pointer !important;
+  }
+
+  .sidebar nav{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:5px !important;
+    width:100% !important;
+    padding:2px 0 10px !important;
+  }
+
+  .sidebar .nav{
+    width:100% !important;
+    height:50px !important;
+    min-height:50px !important;
+    padding:0 13px !important;
+    justify-content:flex-start !important;
+    align-items:center !important;
+    gap:13px !important;
+    border-radius:15px !important;
+    background:transparent !important;
+    color:var(--muted) !important;
+    font-size:14px !important;
+    font-weight:600 !important;
+    line-height:1.15 !important;
+    text-align:left !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
+  }
+
+  .sidebar .nav span{
+    flex:0 0 30px !important;
+    width:30px !important;
+    min-width:30px !important;
+    display:grid !important;
+    place-items:center !important;
+    font-size:19px !important;
+    line-height:1 !important;
+    text-align:center !important;
+  }
+
+  .sidebar .nav.active{
+    background:var(--primary-soft) !important;
+    color:var(--text) !important;
+    font-weight:800 !important;
+    box-shadow:inset 3px 0 0 var(--primary) !important;
+  }
+
+  .sidebar .nav:active{
+    transform:scale(.985);
+  }
+
+  .sidebar .side-foot{
+    display:flex !important;
+    margin-top:auto !important;
+    padding:14px 10px 8px !important;
+    border-top:1px solid var(--outline) !important;
+    font-size:11px !important;
+    line-height:1.25 !important;
+  }
+
+  /* Botón hamburguesa disponible también en tablet (761–820px). */
+  #menuBtn.mobile-only{
+    display:grid !important;
+  }
+
+  .scrim.show{
+    display:block !important;
+    position:fixed !important;
+    inset:0 !important;
+    z-index:110 !important;
+    background:rgba(15,16,24,.42) !important;
+    backdrop-filter:blur(2px) !important;
+  }
+
+  body.drawer-open{
+    overflow:hidden !important;
+    touch-action:none;
+  }
+}
+
+@media (max-width:420px){
+  .sidebar{
+    width:min(90vw,306px) !important;
+  }
+  .sidebar .nav{
+    height:48px !important;
+    min-height:48px !important;
+    font-size:13.5px !important;
+  }
+}
+
+/* ==========================================================
+   V59 - CONTEO SEMANAL: CÓDIGO + CATÁLOGO FIJOS EN MÓVIL/TABLET
+   En PC la tabla permanece normal.
+   ========================================================== */
+
+/* Teléfonos y tablets en vertical / viewport compacto,
+   y tablets táctiles en horizontal hasta 1100px. */
+@media (max-width:820px),
+       (min-width:821px) and (max-width:1100px) and (pointer:coarse){
+  .weekly-panel .table-wrap{
+    position:relative;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    -webkit-overflow-scrolling:touch;
+    isolation:isolate;
+  }
+
+  .weekly-table{
+    /* JS actualiza este valor con el ancho REAL del Código. */
+    --weekly-code-sticky-width:138px;
+    table-layout:auto !important;
+    width:max-content !important;
+    min-width:1120px !important;
+  }
+
+  /* 1. Código: una línea, texto completo. */
+  .weekly-table th:nth-child(1),
+  .weekly-table td:nth-child(1){
+    position:sticky !important;
+    left:0 !important;
+    min-width:118px !important;
+    width:max-content !important;
+    max-width:none !important;
+    z-index:8 !important;
+    background:var(--surface) !important;
+    white-space:nowrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    text-overflow:clip !important;
+    overflow:visible !important;
+    hyphens:none !important;
+  }
+
+  .weekly-table thead th:nth-child(1){
+    z-index:13 !important;
+    background:var(--card2) !important;
+  }
+
+  /* 2. Catálogo: se pega exactamente después del ancho real de Código. */
+  .weekly-table th:nth-child(2),
+  .weekly-table td:nth-child(2){
+    position:sticky !important;
+    left:var(--weekly-code-sticky-width) !important;
+    min-width:108px !important;
+    width:max-content !important;
+    max-width:none !important;
+    z-index:7 !important;
+    background:var(--surface) !important;
+    white-space:nowrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    text-overflow:clip !important;
+    overflow:visible !important;
+    hyphens:none !important;
+    box-shadow:9px 0 13px -11px rgba(15,23,42,.72);
+  }
+
+  .weekly-table thead th:nth-child(2){
+    z-index:12 !important;
+    background:var(--card2) !important;
+  }
+
+  .weekly-table tbody tr:hover td:nth-child(1),
+  .weekly-table tbody tr:hover td:nth-child(2){
+    background:var(--surface) !important;
+  }
+}
+
+/* Celular angosto: padding compacto, sin cortar el contenido. */
+@media (max-width:560px){
+  .weekly-table th:nth-child(1),
+  .weekly-table td:nth-child(1),
+  .weekly-table th:nth-child(2),
+  .weekly-table td:nth-child(2){
+    padding-left:7px !important;
+    padding-right:7px !important;
+    font-size:10.5px !important;
+  }
+}
+
+
+/* ==========================================================
+   V60 - INVENTARIO DIGITAL: ACC. + CÓDIGO + CATÁLOGO FIJOS EN MÓVIL/TABLET
+   En PC la tabla permanece normal.
+   ========================================================== */
+@media (max-width:820px),
+       (min-width:821px) and (max-width:1100px) and (pointer:coarse){
+  .digital-panel .table-wrap{
+    position:relative;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    -webkit-overflow-scrolling:touch;
+    isolation:isolate;
+  }
+
+  .digital-table{
+    --digital-acc-sticky-width:68px;
+    --digital-code-sticky-width:132px;
+    table-layout:auto !important;
+    width:max-content !important;
+    min-width:1220px !important;
+  }
+
+  /* 1. Acc. */
+  .digital-table th:nth-child(1),
+  .digital-table td:nth-child(1){
+    position:sticky !important;
+    left:0 !important;
+    width:68px !important;
+    min-width:68px !important;
+    max-width:68px !important;
+    z-index:9 !important;
+    background:var(--surface) !important;
+    text-align:center !important;
+  }
+
+  .digital-table thead th:nth-child(1){
+    z-index:14 !important;
+    background:var(--card2) !important;
+  }
+
+  /* 2. Código */
+  .digital-table th:nth-child(2),
+  .digital-table td:nth-child(2){
+    position:sticky !important;
+    left:var(--digital-acc-sticky-width) !important;
+    min-width:max-content !important;
+    width:max-content !important;
+    max-width:none !important;
+    z-index:8 !important;
+    background:var(--surface) !important;
+    white-space:nowrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    text-overflow:clip !important;
+    overflow:visible !important;
+    hyphens:none !important;
+  }
+
+  .digital-table thead th:nth-child(2){
+    z-index:13 !important;
+    background:var(--card2) !important;
+  }
+
+  /* 3. Catálogo */
+  .digital-table th:nth-child(3),
+  .digital-table td:nth-child(3){
+    position:sticky !important;
+    left:calc(var(--digital-acc-sticky-width) + var(--digital-code-sticky-width)) !important;
+    min-width:max-content !important;
+    width:max-content !important;
+    max-width:none !important;
+    z-index:7 !important;
+    background:var(--surface) !important;
+    white-space:nowrap !important;
+    word-break:normal !important;
+    overflow-wrap:normal !important;
+    text-overflow:clip !important;
+    overflow:visible !important;
+    hyphens:none !important;
+    box-shadow:10px 0 14px -11px rgba(15,23,42,.72);
+  }
+
+  .digital-table thead th:nth-child(3){
+    z-index:12 !important;
+    background:var(--card2) !important;
+  }
+
+  .digital-table tbody tr:hover td:nth-child(1),
+  .digital-table tbody tr:hover td:nth-child(2),
+  .digital-table tbody tr:hover td:nth-child(3){
+    background:var(--surface) !important;
+  }
+}
+
+/* Celular angosto: mantener tocable pero más compacto. */
+@media (max-width:560px){
+  .digital-table th:nth-child(1),
+  .digital-table td:nth-child(1){
+    width:62px !important;
+    min-width:62px !important;
+    max-width:62px !important;
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+
+  .digital-table input[data-digital-physical]{
+    max-width:92px !important;
+    min-height:38px !important;
+    height:38px !important;
+    font-size:12px !important;
+  }
+
+  .digital-table input[data-digital-obs]{
+    min-width:150px !important;
+  }
+}
+
+/* ==========================================================
+   V61 - BUSCADOR GLOBAL SOLO EN INVENTARIO
+   Fuera de Inventario desaparece completamente.
+   ========================================================== */
+#globalSearchWrap[hidden]{
+  display:none !important;
+}
+
+/* En escritorio, sin buscador no queda espacio reservado. */
+.topbar.search-hidden .top-actions{
+  margin-left:auto;
+}
+
+/* Móvil/tablet: la regla histórica reservaba espacio inferior para el
+   buscador absoluto. Cuando está oculto, compactamos el encabezado. */
+@media (max-width:820px){
+  .topbar.search-hidden{
+    padding-bottom:12px !important;
+    min-height:auto !important;
+  }
+
+  .topbar.search-hidden .top-actions{
+    position:static !important;
+    width:auto !important;
+    margin-left:auto !important;
+  }
+}
+
+@media (max-width:560px){
+  .topbar.search-hidden{
+    padding-bottom:10px !important;
+  }
+}
+
+
+/* ==========================================================
+   V62 - LOGO DE LA BODEGA
+   ========================================================== */
+.brand-icon{
+  flex:0 0 auto;
+  overflow:hidden;
+}
+.brand-icon.has-logo{
+  padding:4px;
+  background:#fff;
+  border:1px solid var(--outline);
+}
+.brand-icon.has-logo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:10px;
+}
+.logo-setting{
+  align-items:flex-start !important;
+}
+.logo-setting-copy{
+  flex:1 1 380px;
+  min-width:0;
+}
+.logo-editor{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:14px;
+  flex:0 1 520px;
+}
+.logo-preview{
+  width:86px;
+  height:86px;
+  flex:0 0 86px;
+  border:1.5px dashed var(--outline);
+  border-radius:20px;
+  background:var(--surface);
+  display:grid;
+  place-items:center;
+  color:var(--primary);
+  font-size:34px;
+  overflow:hidden;
+}
+.logo-preview.has-logo{
+  border-style:solid;
+  background:#fff;
+  padding:6px;
+}
+.logo-preview img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:13px;
+}
+.logo-editor-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  min-width:0;
+}
+.logo-editor-actions small{
+  display:block;
+  flex-basis:100%;
+  max-width:390px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.35;
+}
+@media(max-width:820px){
+  .logo-setting{
+    display:block !important;
+  }
+  .logo-editor{
+    justify-content:flex-start;
+    margin-top:14px;
+    width:100%;
+  }
+  .logo-preview{
+    width:74px;
+    height:74px;
+    flex-basis:74px;
+    border-radius:18px;
+  }
+}
+@media(max-width:480px){
+  .logo-editor{
+    align-items:flex-start;
+  }
+  .logo-editor-actions{
+    flex:1 1 auto;
+  }
+  .logo-editor-actions .btn{
+    width:100%;
+  }
+}
+
+
+/* ==========================================================
+   V63 - MULTIUSUARIO CASI EN TIEMPO REAL
+   ========================================================== */
+.live-status-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  height:38px;
+  padding:0 12px;
+  border:1px solid var(--outline);
+  border-radius:999px;
+  background:var(--card);
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.live-status-pill[hidden]{display:none!important}
+.live-dot{
+  width:8px;height:8px;border-radius:50%;background:#94a3b8;
+  box-shadow:0 0 0 3px rgba(148,163,184,.14);
+}
+.live-status-pill.ok{color:#166534;border-color:#bbf7d0;background:#f0fdf4}
+.live-status-pill.ok .live-dot{background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.14)}
+.live-status-pill.syncing .live-dot{background:#2563eb;animation:livePulse 1s infinite}
+.live-status-pill.error{color:#92400e;border-color:#fde68a;background:#fffbeb}
+.live-status-pill.error .live-dot{background:#f59e0b}
+@keyframes livePulse{50%{opacity:.35;transform:scale(.82)}}
+@media(max-width:820px){
+  .live-status-pill{height:34px;padding:0 9px;font-size:10px}
+  .topbar.search-hidden .live-status-pill{margin-left:auto}
+}
+@media(max-width:430px){
+  .live-status-pill{padding:0 8px}
+  .live-status-pill #liveStatusText{max-width:82px;overflow:hidden;text-overflow:ellipsis}
+}
+
+
+/* ==========================================================
+   V64 - CONTEO SEMANAL: CONFIRMAR Y BLOQUEAR FILA
+   + columnas Catálogo/Descripción más compactas
+   ========================================================== */
+.weekly-table{
+  width:max-content !important;
+  min-width:1180px !important;
+  table-layout:auto !important;
+}
+
+/* Código, Catálogo y Descripción siguen completos y en una línea. */
+.weekly-table th:nth-child(1),.weekly-table td:nth-child(1){min-width:150px !important;width:150px !important;white-space:nowrap !important}
+.weekly-table th:nth-child(2),.weekly-table td:nth-child(2){min-width:150px !important;width:150px !important;white-space:nowrap !important;padding-left:8px !important;padding-right:8px !important}
+.weekly-table th:nth-child(3),.weekly-table td:nth-child(3){min-width:250px !important;width:250px !important;white-space:nowrap !important;padding-left:8px !important;padding-right:10px !important}
+.weekly-table th:nth-child(4),.weekly-table td:nth-child(4){width:68px !important;min-width:68px !important;max-width:68px !important}
+.weekly-table th:nth-child(5),.weekly-table td:nth-child(5){width:58px !important;min-width:58px !important;max-width:58px !important}
+.weekly-table th:nth-child(6),.weekly-table td:nth-child(6){width:104px !important;min-width:104px !important;max-width:104px !important}
+
+/* Nueva columna Confirmar */
+.weekly-table th:nth-child(7),.weekly-table td:nth-child(7){
+  width:78px !important;min-width:78px !important;max-width:78px !important;
+  padding-left:6px !important;padding-right:6px !important;text-align:center !important;vertical-align:middle !important;
+}
+.weekly-table th:nth-child(8),.weekly-table td:nth-child(8){width:54px !important;min-width:54px !important;max-width:54px !important;text-align:center !important}
+.weekly-table th:nth-child(9),.weekly-table td:nth-child(9){width:92px !important;min-width:92px !important;max-width:92px !important;text-align:center !important}
+.weekly-table th:nth-child(10),.weekly-table td:nth-child(10){width:150px !important;min-width:150px !important;max-width:150px !important}
+.weekly-table input[data-weekly-obs]{width:132px !important;min-width:132px !important;max-width:132px !important}
+
+.weekly-confirm-head{white-space:nowrap !important}
+.weekly-confirm-cell{text-align:center !important}
+.weekly-confirm-box{
+  display:inline-grid !important;
+  place-items:center;
+  width:34px;height:34px;
+  margin:auto;
+  cursor:pointer;
+  position:relative;
+}
+.weekly-confirm-box input{
+  appearance:none;-webkit-appearance:none;
+  width:28px !important;height:28px !important;min-height:28px !important;
+  margin:0 !important;padding:0 !important;
+  border:1.5px solid #aeb8c9 !important;
+  border-radius:8px !important;
+  background:#fff !important;
+  cursor:pointer;
+}
+.weekly-confirm-box span{
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+  color:white;font-size:17px;font-weight:900;
+  pointer-events:none;opacity:0;
+}
+.weekly-confirm-box input:checked{
+  background:#2e7d4f !important;
+  border-color:#2e7d4f !important;
+}
+.weekly-confirm-box input:checked + span{opacity:1}
+.weekly-confirm-box input:disabled{cursor:not-allowed;opacity:.72}
+
+.weekly-row-confirmed > td{
+  background:rgba(46,125,79,.055) !important;
+}
+.weekly-row-confirmed td:first-child{
+  box-shadow:inset 4px 0 0 #2e7d4f;
+}
+.weekly-row-confirmed input:not([type="checkbox"]){
+  background:#eef4ef !important;
+  color:#59645d !important;
+}
+.weekly-confirmed-mark{
+  display:inline-grid;place-items:center;
+  width:25px;height:25px;border-radius:50%;
+  background:#d8f1df;color:#166534;font-weight:900;
+}
+
+/* Móvil/tablet: mantener Código + Catálogo sticky de V59 y compactar el resto. */
+@media (max-width:820px),
+       (min-width:821px) and (max-width:1100px) and (pointer:coarse){
+  .weekly-table{min-width:1100px !important}
+  .weekly-table th:nth-child(1),.weekly-table td:nth-child(1){min-width:125px !important;width:max-content !important}
+  .weekly-table th:nth-child(2),.weekly-table td:nth-child(2){min-width:112px !important;width:max-content !important}
+  .weekly-table th:nth-child(3),.weekly-table td:nth-child(3){min-width:220px !important;width:220px !important}
+  .weekly-table th:nth-child(7),.weekly-table td:nth-child(7){width:68px !important;min-width:68px !important;max-width:68px !important}
+  .weekly-confirm-box{width:38px;height:38px}
+  .weekly-confirm-box input{width:30px !important;height:30px !important;min-height:30px !important}
+  .weekly-table th:nth-child(10),.weekly-table td:nth-child(10){width:138px !important;min-width:138px !important;max-width:138px !important}
+  .weekly-table input[data-weekly-obs]{width:120px !important;min-width:120px !important;max-width:120px !important}
+}
+
+/* ==========================================================
+   V65 - CONTEO SEMANAL: TABLA AJUSTADA AL ANCHO DEL PANEL
+   Corrige el espacio vacío a la derecha de V64.
+   ========================================================== */
+
+/* PC / escritorio: la tabla llena el panel completo. */
+@media (min-width:821px){
+  .weekly-panel .table-wrap{
+    width:100% !important;
+    max-width:100% !important;
+    overflow-x:auto !important;
+  }
+
+  .weekly-table{
+    width:100% !important;
+    min-width:1180px !important;
+    max-width:none !important;
+    table-layout:auto !important;
+  }
+
+  /* Reparto profesional del ancho disponible */
+  .weekly-table th:nth-child(1),
+  .weekly-table td:nth-child(1){
+    width:15% !important;
+    min-width:150px !important;
+    max-width:none !important;
+  }
+
+  .weekly-table th:nth-child(2),
+  .weekly-table td:nth-child(2){
+    width:13% !important;
+    min-width:135px !important;
+    max-width:none !important;
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+
+  .weekly-table th:nth-child(3),
+  .weekly-table td:nth-child(3){
+    width:23% !important;
+    min-width:215px !important;
+    max-width:none !important;
+    padding-left:8px !important;
+    padding-right:10px !important;
+  }
+
+  .weekly-table th:nth-child(4),
+  .weekly-table td:nth-child(4){
+    width:6% !important;
+    min-width:64px !important;
+    max-width:80px !important;
+  }
+
+  .weekly-table th:nth-child(5),
+  .weekly-table td:nth-child(5){
+    width:5% !important;
+    min-width:58px !important;
+    max-width:72px !important;
+  }
+
+  .weekly-table th:nth-child(6),
+  .weekly-table td:nth-child(6){
+    width:10% !important;
+    min-width:108px !important;
+    max-width:145px !important;
+  }
+
+  .weekly-table th:nth-child(7),
+  .weekly-table td:nth-child(7){
+    width:7% !important;
+    min-width:76px !important;
+    max-width:98px !important;
+  }
+
+  .weekly-table th:nth-child(8),
+  .weekly-table td:nth-child(8){
+    width:5% !important;
+    min-width:52px !important;
+    max-width:68px !important;
+  }
+
+  .weekly-table th:nth-child(9),
+  .weekly-table td:nth-child(9){
+    width:7% !important;
+    min-width:86px !important;
+    max-width:104px !important;
+  }
+
+  .weekly-table th:nth-child(10),
+  .weekly-table td:nth-child(10){
+    width:9% !important;
+    min-width:138px !important;
+    max-width:180px !important;
+  }
+
+  .weekly-table input[data-weekly-physical]{
+    width:82px !important;
+    min-width:82px !important;
+    max-width:82px !important;
+  }
+
+  .weekly-table input[data-weekly-obs]{
+    width:120px !important;
+    min-width:120px !important;
+    max-width:150px !important;
+  }
+}
+
+/* Tablet y celular: mantener el comportamiento móvil de V59/V64. */
+@media (max-width:820px),
+       (min-width:821px) and (max-width:1100px) and (pointer:coarse){
+  .weekly-table{
+    width:max-content !important;
+    min-width:1100px !important;
+    table-layout:auto !important;
+  }
+
+  .weekly-table th:nth-child(2),
+  .weekly-table td:nth-child(2){
+    min-width:112px !important;
+    width:max-content !important;
+    max-width:none !important;
+  }
+
+  .weekly-table th:nth-child(3),
+  .weekly-table td:nth-child(3){
+    min-width:190px !important;
+    width:190px !important;
+    max-width:230px !important;
+  }
+}
+
+/* ==========================================================
+   V70 - INVENTARIO DIGITAL + DIFERENCIAS PROFESIONALES
+   ========================================================== */
+.digital-table{min-width:1235px}
+.digital-table th:nth-child(8),
+.digital-table td:nth-child(8){
+  min-width:78px;
+  width:78px;
+  text-align:center;
+  vertical-align:middle;
+}
+.digital-table th:nth-child(10),
+.digital-table td:nth-child(10){
+  min-width:105px !important;
+  width:105px;
+  text-align:center;
+}
+.digital-table th:nth-child(11),
+.digital-table td:nth-child(11){
+  min-width:170px;
+}
+.digital-diff-cell{font-variant-numeric:tabular-nums}
+.digital-diff-value{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:44px;
+  min-height:30px;
+  padding:4px 9px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:12px;
+  line-height:1;
+  white-space:nowrap;
+}
+.digital-diff-value.is-empty{color:var(--muted);background:transparent}
+.digital-diff-value.is-zero{color:#176b34;background:#dff4e5}
+.digital-diff-value.is-negative{color:#a62920;background:#ffe3df}
+.digital-diff-value.is-positive{color:#075985;background:#dff1ff}
+
+.difference-help{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:0 0 12px;
+  padding:10px 12px;
+  border:1px solid var(--outline);
+  border-radius:14px;
+  background:var(--primary-soft);
+}
+.difference-help>div:first-child{display:flex;flex-direction:column;gap:2px}
+.difference-help b{font-size:12px}
+.difference-help span{font-size:11px;color:var(--muted)}
+.difference-help-legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.difference-help-legend span{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:var(--surface);
+  border:1px solid var(--outline);
+  font-weight:750;
+  white-space:nowrap;
+}
+.difference-help-legend .diff-negative{color:#a62920;background:#fff1ef}
+.difference-help-legend .diff-positive{color:#075985;background:#eef8ff}
+
+.difference-actions{gap:6px;flex-wrap:nowrap}
+.difference-action-btn{
+  width:auto !important;
+  min-width:38px;
+  padding:0 9px !important;
+  gap:5px;
+  white-space:nowrap;
+}
+.difference-action-btn .action-label{font-size:10px;font-weight:800}
+.persistent-differences-table th:nth-child(8),
+.persistent-differences-table td:nth-child(8),
+.persistent-differences-table th:nth-child(9),
+.persistent-differences-table td:nth-child(9),
+.persistent-differences-table th:nth-child(10),
+.persistent-differences-table td:nth-child(10){
+  text-align:center;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+
+@media(max-width:820px),
+       (min-width:821px) and (max-width:1100px) and (pointer:coarse){
+  .digital-table{min-width:1300px !important}
+  .difference-help{align-items:flex-start;flex-direction:column}
+  .difference-help-legend{justify-content:flex-start}
+  .difference-action-btn .action-label{display:none}
+  .difference-action-btn{width:38px !important;padding:0 !important}
+}
+
+/* ==========================================================
+   V72 - CALCULADORA INTEGRADA EN INVENTARIO DIGITAL
+   ========================================================== */
+.digital-table{min-width:1325px !important}
+.digital-table th:nth-child(8),
+.digital-table td:nth-child(8){
+  min-width:64px !important;
+  width:64px !important;
+  max-width:64px !important;
+  text-align:center !important;
+  padding-left:6px !important;
+  padding-right:6px !important;
+}
+.digital-table th:nth-child(9),
+.digital-table td:nth-child(9){
+  min-width:78px !important;
+  width:78px !important;
+  max-width:78px !important;
+  text-align:center !important;
+}
+.digital-table th:nth-child(10),
+.digital-table td:nth-child(10){
+  min-width:88px !important;
+  width:88px !important;
+  max-width:110px !important;
+  text-align:center !important;
+}
+.digital-table th:nth-child(11),
+.digital-table td:nth-child(11){
+  min-width:105px !important;
+  width:105px !important;
+  max-width:115px !important;
+  text-align:center !important;
+}
+.digital-table th:nth-child(12),
+.digital-table td:nth-child(12){
+  min-width:170px !important;
+  width:170px !important;
+}
+.digital-calc-cell{vertical-align:middle !important}
+.digital-calc-row-btn{
+  width:38px;
+  height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--outline);
+  border-radius:11px;
+  background:var(--surface);
+  font-size:18px;
+  line-height:1;
+  cursor:pointer;
+  transition:background .16s ease,border-color .16s ease,transform .08s ease;
+}
+.digital-calc-row-btn:hover{background:var(--primary-soft);border-color:var(--primary)}
+.digital-calc-row-btn:active{transform:scale(.96)}
+.digital-calc-row-btn:disabled{opacity:.45;cursor:not-allowed}
+
+.digital-calculator-dialog{
+  width:min(390px,calc(100% - 28px));
+  max-width:390px;
+  border:0;
+  border-radius:24px;
+  padding:0;
+  background:transparent;
+  color:var(--text);
+  box-shadow:0 24px 70px rgba(16,24,40,.28);
+}
+.digital-calculator-dialog::backdrop{
+  background:rgba(20,24,38,.38);
+  backdrop-filter:blur(2px);
+}
+.digital-calculator-shell{
+  background:var(--surface);
+  border:1px solid var(--outline);
+  border-radius:24px;
+  overflow:hidden;
+}
+.digital-calculator-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:18px 18px 12px;
+  border-bottom:1px solid var(--outline);
+}
+.digital-calculator-head small{font-size:9px;font-weight:850;letter-spacing:.12em;color:var(--muted)}
+.digital-calculator-head h3{margin:3px 0 3px;font-size:20px}
+.digital-calculator-head p{margin:0;color:var(--muted);font-size:11px;line-height:1.35}
+.digital-calculator-display{
+  margin:16px 16px 4px;
+  min-height:66px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  overflow:hidden;
+  border-radius:16px;
+  background:var(--card2);
+  border:1px solid var(--outline);
+  font-size:32px;
+  line-height:1;
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;
+}
+.digital-calculator-expression{
+  min-height:18px;
+  padding:0 18px 8px;
+  text-align:right;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+}
+.digital-calculator-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  padding:8px 16px 14px;
+}
+.calc-key{
+  min-height:48px;
+  border:1px solid var(--outline);
+  border-radius:14px;
+  background:var(--surface);
+  color:var(--text);
+  font-size:18px;
+  font-weight:800;
+  cursor:pointer;
+}
+.calc-key:hover{background:var(--card2)}
+.calc-key:active{transform:scale(.97)}
+.calc-key-soft{background:var(--card2)}
+.calc-key-op{background:var(--primary-soft);color:var(--primary);font-size:20px}
+.calc-key-equals{grid-row:span 2;background:var(--primary);color:#fff;border-color:var(--primary)}
+.calc-key-zero{grid-column:span 2}
+.digital-calculator-actions{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:8px;
+  padding:0 16px 12px;
+}
+.digital-calculator-actions .btn{min-height:44px}
+.digital-calculator-note{
+  margin:0;
+  padding:0 18px 16px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.4;
+}
+
+/* La barra superior ahora tiene un control adicional. */
+.digital-tools{
+  grid-template-columns:minmax(175px,1.05fr) minmax(180px,1.05fr) minmax(165px,.9fr) auto auto auto !important;
+}
+
+@media(max-width:1100px){
+  .digital-tools{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+}
+@media(max-width:760px){
+  .digital-tools{grid-template-columns:1fr !important}
+  .digital-calculator-dialog{width:min(360px,calc(100% - 18px));border-radius:20px}
+  .digital-calculator-shell{border-radius:20px}
+  .digital-calculator-head{padding:14px 14px 10px}
+  .digital-calculator-display{margin:12px 12px 4px;min-height:62px;font-size:30px}
+  .digital-calculator-grid{padding:8px 12px 12px;gap:7px}
+  .calc-key{min-height:48px;font-size:17px}
+  .digital-calculator-actions{padding:0 12px 10px;grid-template-columns:96px 1fr}
+  .digital-calculator-note{padding:0 14px 14px}
+  .digital-table{min-width:1390px !important}
+}
+
+/* ==========================================================
+   V73 - INVENTARIO DIGITAL: TABLA A TODO EL ANCHO + FILA MARCADA
+   ========================================================== */
+
+/* PC: aprovechar todo el espacio disponible del panel. */
+@media (min-width:1101px){
+  .digital-panel .table-wrap{
+    width:100% !important;
+  }
+  .digital-table{
+    width:100% !important;
+    min-width:100% !important;
+    table-layout:auto !important;
+  }
+
+  /* Más espacio donde realmente se necesita. */
+  .digital-table th:nth-child(2),
+  .digital-table td:nth-child(2){
+    min-width:135px !important;
+    width:145px !important;
+    max-width:none !important;
+  }
+  .digital-table th:nth-child(3),
+  .digital-table td:nth-child(3){
+    min-width:145px !important;
+    width:160px !important;
+    max-width:none !important;
+  }
+  .digital-table th:nth-child(4),
+  .digital-table td:nth-child(4){
+    min-width:280px !important;
+    width:33% !important;
+    max-width:none !important;
+  }
+
+  /* Mantener compactas las columnas de apoyo. */
+  .digital-table th:nth-child(1),
+  .digital-table td:nth-child(1){width:62px !important;min-width:62px !important;max-width:62px !important}
+  .digital-table th:nth-child(5),
+  .digital-table td:nth-child(5){width:72px !important;min-width:72px !important}
+  .digital-table th:nth-child(6),
+  .digital-table td:nth-child(6){width:70px !important;min-width:70px !important}
+  .digital-table th:nth-child(7),
+  .digital-table td:nth-child(7){width:165px !important;min-width:165px !important}
+  .digital-table th:nth-child(8),
+  .digital-table td:nth-child(8){width:58px !important;min-width:58px !important;max-width:58px !important}
+  .digital-table th:nth-child(9),
+  .digital-table td:nth-child(9){width:74px !important;min-width:74px !important;max-width:74px !important}
+  .digital-table th:nth-child(10),
+  .digital-table td:nth-child(10){width:82px !important;min-width:82px !important;max-width:92px !important}
+  .digital-table th:nth-child(11),
+  .digital-table td:nth-child(11){width:108px !important;min-width:108px !important;max-width:118px !important}
+  .digital-table th:nth-child(12),
+  .digital-table td:nth-child(12){width:180px !important;min-width:180px !important}
+}
+
+/* Código, catálogo y descripción siempre completos en una línea. */
+.digital-table th:nth-child(2),
+.digital-table td:nth-child(2),
+.digital-table th:nth-child(3),
+.digital-table td:nth-child(3),
+.digital-table th:nth-child(4),
+.digital-table td:nth-child(4){
+  white-space:nowrap !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+  text-overflow:clip !important;
+  overflow:visible !important;
+}
+
+/* Una fila contada queda visualmente marcada. */
+:root{
+  --digital-counted-row:#eef4ff;
+  --digital-active-row:#dfe9ff;
+  --digital-counted-edge:#7a96f7;
+}
+.dark{
+  --digital-counted-row:#202a43;
+  --digital-active-row:#29375a;
+  --digital-counted-edge:#8ea7ff;
+}
+.digital-table tbody tr td{
+  transition:background-color .16s ease,border-color .16s ease;
+}
+.digital-table tbody tr.digital-row-counted td{
+  background:var(--digital-counted-row) !important;
+}
+.digital-table tbody tr.digital-row-counted td:first-child{
+  box-shadow:inset 4px 0 0 var(--digital-counted-edge);
+}
+.digital-table tbody tr.digital-row-active td{
+  background:var(--digital-active-row) !important;
+}
+.digital-table tbody tr.digital-row-active td:first-child{
+  box-shadow:inset 5px 0 0 var(--primary);
+}
+
+/* En móvil/tablet conserva scroll horizontal y las columnas fijas de V60. */
+@media (max-width:820px),
+       (min-width:821px) and (max-width:1100px) and (pointer:coarse){
+  .digital-table{
+    width:max-content !important;
+    min-width:1460px !important;
+  }
+  .digital-table th:nth-child(2),
+  .digital-table td:nth-child(2){min-width:135px !important;width:max-content !important}
+  .digital-table th:nth-child(3),
+  .digital-table td:nth-child(3){min-width:145px !important;width:max-content !important}
+  .digital-table th:nth-child(4),
+  .digital-table td:nth-child(4){min-width:270px !important;width:max-content !important}
+
+  /* El color también cubre las columnas sticky. */
+  .digital-table tbody tr.digital-row-counted td:nth-child(1),
+  .digital-table tbody tr.digital-row-counted td:nth-child(2),
+  .digital-table tbody tr.digital-row-counted td:nth-child(3){
+    background:var(--digital-counted-row) !important;
+  }
+  .digital-table tbody tr.digital-row-active td:nth-child(1),
+  .digital-table tbody tr.digital-row-active td:nth-child(2),
+  .digital-table tbody tr.digital-row-active td:nth-child(3){
+    background:var(--digital-active-row) !important;
+  }
+}
+
+/* ==========================================================
+   V75 - MÓVIL/TABLET: SIN BARRA DE NAVEGACIÓN INFERIOR
+   Se usa únicamente el menú hamburguesa/drawer en pantallas móviles.
+   ========================================================== */
+@media (max-width:820px){
+  .bottom-nav{
+    display:none !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+
+  body{
+    padding-bottom:0 !important;
+  }
+
+  .content,
+  #content{
+    padding-bottom:24px !important;
+  }
+
+  .toast{
+    bottom:calc(18px + var(--safe)) !important;
+  }
+}
+
+/* Tablet táctil horizontal: tampoco mostrar la barra inferior. */
+@media (min-width:821px) and (max-width:1100px) and (pointer:coarse){
+  .bottom-nav{
+    display:none !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
+
+  body{
+    padding-bottom:0 !important;
+  }
+
+  .toast{
+    bottom:calc(18px + var(--safe)) !important;
+  }
+}
+
+/* ==========================================================
+   V76 - DASHBOARD DE DIFERENCIAS + MARCADO DE CONTEO SEMANAL
+   ========================================================== */
+.stat-icon{display:inline-block;font-weight:900;line-height:1}
+.stat-action{
+  appearance:none;-webkit-appearance:none;width:100%;
+  border:1px solid transparent;text-align:left;color:var(--text);font:inherit;
+  cursor:pointer;position:relative;
+  transition:transform .16s ease,border-color .16s ease,background-color .16s ease,box-shadow .16s ease;
+}
+.stat-action .stat-cta{display:block;margin-top:10px;font-size:12px;font-weight:800;color:var(--primary)}
+.stat-differences.has-pending{
+  border-color:rgba(193,112,0,.28);
+  background:linear-gradient(180deg,var(--card),rgba(255,246,222,.72));
+}
+.stat-differences.has-pending b{color:#9a5700}
+.stat-differences.is-clear{border-color:rgba(46,125,79,.20)}
+@media (hover:hover) and (pointer:fine){
+  .stat-action:hover{transform:translateY(-2px);border-color:var(--outline);box-shadow:0 8px 22px rgba(32,38,71,.08)}
+}
+.stat-action:focus-visible{outline:3px solid rgba(67,85,199,.24);outline-offset:2px}
+.dark .stat-differences.has-pending{background:linear-gradient(180deg,var(--card),rgba(112,72,18,.22));border-color:rgba(255,194,91,.24)}
+.dark .stat-differences.has-pending b{color:#ffd28a}
+
+:root{--weekly-counted-row:#eef4ff;--weekly-active-row:#dfe9ff;--weekly-counted-edge:#7a96f7}
+.dark{--weekly-counted-row:#202a43;--weekly-active-row:#29375a;--weekly-counted-edge:#8ea7ff}
+.weekly-table tbody tr td{transition:background-color .16s ease,border-color .16s ease}
+.weekly-table tbody tr.weekly-row-counted:not(.weekly-row-confirmed) td{background:var(--weekly-counted-row) !important}
+.weekly-table tbody tr.weekly-row-counted:not(.weekly-row-confirmed) td:first-child{box-shadow:inset 4px 0 0 var(--weekly-counted-edge)}
+.weekly-table tbody tr.weekly-row-active:not(.weekly-row-confirmed) td{background:var(--weekly-active-row) !important}
+.weekly-table tbody tr.weekly-row-active:not(.weekly-row-confirmed) td:first-child{box-shadow:inset 5px 0 0 var(--primary)}
+.weekly-table tbody tr.weekly-row-confirmed td{background:rgba(46,125,79,.055) !important}
+.weekly-table tbody tr.weekly-row-confirmed td:first-child{box-shadow:inset 4px 0 0 #2e7d4f !important}
+@media(max-width:760px){.stat-action .stat-cta{font-size:11px}}
+
+/* ==========================================================
+   V77 - ALINEACIÓN PROFESIONAL EN DIFERENCIAS
+   Solo modifica Familia, Código, Catálogo y Descripción.
+   ========================================================== */
+/* Familia: centrada */
+.persistent-differences-table th:nth-child(4),
+.persistent-differences-table td:nth-child(4){
+  text-align:center !important;
+  vertical-align:middle !important;
+}
+
+/* Código, Catálogo y Descripción: alineados a la izquierda */
+.persistent-differences-table th:nth-child(5),
+.persistent-differences-table td:nth-child(5),
+.persistent-differences-table th:nth-child(6),
+.persistent-differences-table td:nth-child(6),
+.persistent-differences-table th:nth-child(7),
+.persistent-differences-table td:nth-child(7){
+  text-align:left !important;
+  vertical-align:middle !important;
+}
+
+/* ==========================================================
+   V78 - HISTORIAL PERSISTENTE DE INVENTARIO DIGITAL
+   ========================================================== */
+.digital-view-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.digital-view-tabs .btn{min-height:38px;padding:8px 14px}
+.digital-history-head{align-items:flex-end;gap:16px}
+.digital-history-toolbar{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin:12px 0 14px}
+.digital-history-toolbar label{display:grid;gap:6px;min-width:min(620px,100%);font-size:12px;font-weight:700}
+.digital-history-toolbar select{min-height:44px;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);padding:0 12px;font:inherit}
+.digital-history-summary{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:0 0 14px}
+.digital-history-summary>div{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:11px 12px;min-width:0}
+.digital-history-summary small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.digital-history-summary b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+.digital-history-table{width:100%;border-collapse:separate;border-spacing:0;min-width:1050px}
+.digital-history-table th,.digital-history-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap}
+.digital-history-table th{background:var(--card2);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.digital-history-table th:nth-child(1),.digital-history-table td:nth-child(1),
+.digital-history-table th:nth-child(2),.digital-history-table td:nth-child(2),
+.digital-history-table th:nth-child(3),.digital-history-table td:nth-child(3){text-align:left}
+
+.compact-empty{padding:18px}
+
+@media(max-width:1100px){
+ .digital-history-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:620px){
+ .digital-history-head{align-items:flex-start}
+ .digital-view-tabs{width:100%}.digital-view-tabs .btn{flex:1}
+ .digital-history-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* ==========================================================
+   V79 - FAMILIAS CONTADAS COMO MODULO INDEPENDIENTE
+   ========================================================== */
+.nav .nav-badge{
+  width:auto;
+  min-width:24px;
+  height:22px;
+  padding:0 7px;
+  margin-left:auto;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--primary-soft);
+  color:var(--text);
+  font-size:11px;
+  font-weight:800;
+  line-height:1;
+}
+.nav .nav-badge[hidden]{display:none!important}
+.counted-families-page{display:grid;gap:14px}
+.counted-families-head{align-items:flex-end;gap:16px}
+.families-page-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.families-page-tabs .btn{min-height:40px;padding:8px 14px}
+.counted-family-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.counted-family-summary>div{border:1px solid var(--border);background:var(--card2);border-radius:16px;padding:13px 14px;min-width:0}
+.counted-family-summary small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.counted-family-summary b{font-size:22px;line-height:1.05}
+.counted-families-table{width:100%;border-collapse:separate;border-spacing:0;min-width:980px}
+.counted-families-table th,.counted-families-table td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap}
+.counted-families-table th{background:var(--card2);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.counted-families-table .family-center{text-align:center}
+.counted-families-table td:nth-child(2),.counted-families-table th:nth-child(2){text-align:left}
+.families-actions{justify-content:center;flex-wrap:nowrap}
+
+@media(max-width:1050px) and (min-width:821px){
+  .sidebar .nav .nav-badge{display:none!important}
+}
+@media(max-width:820px){
+  .sidebar .nav .nav-badge{display:inline-flex;margin-left:auto;font-size:10px;min-width:22px;height:20px}
+  .counted-families-head{align-items:flex-start}
+  .families-page-tabs{width:100%}
+  .families-page-tabs .btn{flex:1}
+  .counted-family-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .counted-families-table{min-width:900px}
+}
+@media(max-width:520px){
+  .counted-family-summary{grid-template-columns:1fr 1fr}
+  .counted-family-summary>div{padding:11px 12px}
+  .counted-family-summary b{font-size:19px}
+}
+
+/* ==========================================================
+   V80 - FINAL SEGURA
+   Sesión Netlify + historial digital por archivo en Sheets.
+   ========================================================== */
+.security-login-dialog{border:0;padding:0;background:transparent;max-width:min(460px,calc(100vw - 28px));width:100%}
+.security-login-dialog::backdrop{background:rgba(13,18,32,.58);backdrop-filter:blur(3px)}
+.security-login-card{width:100%;margin:0}
+.security-shield{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;margin:2px auto 4px;background:var(--primary-soft);font-size:31px;border:1px solid var(--border)}
+.security-login-card>label{display:grid;gap:7px;font-weight:700;font-size:12px}
+.security-login-card #securityPin{min-height:46px;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);padding:0 14px;font:inherit;font-size:16px;letter-spacing:.08em}
+.security-login-message{min-height:20px;font-size:12px;color:var(--muted);padding:2px 1px}
+.security-login-message.error{color:#b3261e;font-weight:700}
+.security-login-actions{justify-content:space-between}
+.digital-history-syncline{display:flex;justify-content:flex-end;margin:-4px 0 12px}
+@media(max-width:520px){
+ .security-login-actions{display:grid;grid-template-columns:1fr;gap:8px}
+ .security-login-actions .btn{width:100%}
+}
+.cloud-security-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:12px 0;padding:12px 14px;border:1px solid var(--border);border-radius:16px;background:var(--card2)}
+.cloud-security-row>div:first-child{display:grid;gap:4px;min-width:0}.cloud-security-row small{color:var(--muted);line-height:1.35}.cloud-security-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:620px){.cloud-security-row{align-items:stretch;flex-direction:column}.cloud-security-actions{display:grid;grid-template-columns:1fr}.cloud-security-actions .btn{width:100%}}
+
+
+/* ==========================================================
+   V80.2 - ZONA SEGURA · RESTABLECER A FÁBRICA
+   ========================================================== */
+.factory-reset-card{
+  margin-top:18px;
+  padding:18px 20px;
+  border:1px solid rgba(190,45,45,.28);
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,242,242,.95),rgba(255,249,245,.95));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.factory-reset-card small{font-size:10px;font-weight:850;letter-spacing:.08em;color:#a33131}
+.factory-reset-card h3{margin:4px 0 6px;font-size:18px}
+.factory-reset-card p{margin:0;max-width:860px;line-height:1.45;color:var(--muted)}
+.factory-reset-btn{flex:0 0 auto;min-width:190px}
+body.dark .factory-reset-card{background:rgba(80,25,25,.24);border-color:rgba(255,145,145,.25)}
+@media(max-width:760px){
+  .factory-reset-card{align-items:stretch;flex-direction:column;padding:16px}
+  .factory-reset-btn{width:100%;min-width:0}
+}

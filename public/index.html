@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f5ff">
+<title>Mi Bodega</title>
+<link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon" id="brandIcon" aria-label="Logo de la bodega">▣</div>
+      <div class="brand-copy"><strong id="brandName">Mi Bodega</strong><small>Control de inventario</small></div>
+      <button type="button" class="drawer-close" id="drawerCloseBtn" aria-label="Cerrar menú" title="Cerrar menú">×</button>
+    </div>
+    <nav id="sideNav">
+      <button class="nav active" data-page="inicio"><span>⌂</span>Inicio</button>
+      <button class="nav" data-page="inventario"><span>▣</span>Inventario</button>
+      <button class="nav" data-page="salida"><span>⇥</span>Control de Salida</button>
+      <button class="nav" data-page="conteo"><span>✓</span>Conteo Semanal</button>
+      <button class="nav" data-page="diferencias"><span>≠</span>Diferencias</button>
+      <button class="nav" data-page="sinexist"><span>!</span>Sin Exist.</button>
+      <button class="nav" data-page="digital"><span>▤</span>Inventario Digital</button>
+      <button class="nav" data-page="familias"><span>✓</span>Familias Contadas <span class="nav-badge" id="familiesCountBadge">0</span></button>
+      <button class="nav" data-page="herramientas"><span>⚒</span>Herramientas</button>
+      <button class="nav" data-page="nuevos"><span>✦</span>Códigos Nuevos</button>
+      <button class="nav" data-page="config"><span>⚙</span>Configuración</button>
+    </nav>
+    <div class="side-foot"><span class="dot"></span> Copia local + Google Sheets</div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="title-wrap">
+        <button class="icon-btn mobile-only" id="menuBtn">☰</button>
+        <div><small>Sistema de bodega</small><h1 id="pageTitle">Inicio</h1></div>
+      </div>
+      <div class="top-actions">
+        <div class="live-status-pill" id="liveStatusPill" title="Sincronización automática con Google Sheets" hidden>
+          <span class="live-dot"></span><span id="liveStatusText">Auto Sync</span>
+        </div>
+        <div class="search" id="globalSearchWrap" hidden><span>⌕</span><input id="globalSearch" placeholder="Buscar producto..." autocomplete="off"></div>
+        <button class="icon-btn" id="themeBtn">◐</button>
+      </div>
+    </header>
+    <section id="content" class="content"></section>
+  </main>
+</div>
+
+<nav class="bottom-nav">
+  <button class="bottom active" data-page="inicio"><span>⌂</span><small>Inicio</small></button>
+  <button class="bottom" data-page="inventario"><span>▣</span><small>Inventario</small></button>
+  <button class="bottom" data-page="salida"><span>⇥</span><small>Salida</small></button>
+  <button class="bottom" data-page="conteo"><span>✓</span><small>Conteo</small></button>
+  <button class="bottom" id="moreBtn"><span>•••</span><small>Más</small></button>
+</nav>
+
+<div class="scrim" id="scrim"></div>
+
+<dialog id="productDialog">
+  <form id="productForm" class="dialog-card">
+    <div class="dialog-head">
+      <div><small>Inventario</small><h2 id="productDialogTitle">Agregar producto</h2></div>
+      <button type="button" class="icon-btn" data-close="productDialog">×</button>
+    </div>
+    <div class="grid2">
+      <label>Código<input id="pCode" required></label>
+      <label>Catálogo<input id="pCatalog"></label>
+    </div>
+    <label>Descripción<input id="pName" required></label>
+    <div class="grid2">
+      <label>Familia<input id="pFamily" required></label>
+      <label>Ubicación<input id="pLocation"></label>
+    </div>
+    <div class="grid4">
+      <label>Exist.<input id="pStock" class="no-spinner" type="number" min="0" value="0" required></label>
+      <label>Mín.<input id="pMin" class="no-spinner" type="number" min="0" value="0" required></label>
+      <label>Máx.<input id="pMax" class="no-spinner" type="number" min="0" value="0" required></label>
+      <label>Reposición<input id="pReorder" class="no-spinner locked-field" type="number" min="0" value="0" readonly title="Se calcula automáticamente: Máx. - Exist. y se guarda en BASE_PRODUCTOS"></label>
+    </div>
+    <div class="dialog-actions">
+      <button type="button" class="btn tonal" data-close="productDialog">Cancelar</button>
+      <button class="btn primary" type="submit">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="productDetailDialog">
+  <div class="dialog-card">
+    <div class="dialog-head">
+      <div><small>Detalle del producto</small><h2 id="pdTitle">Producto</h2></div>
+      <button class="icon-btn" data-close="productDetailDialog">×</button>
+    </div>
+    <div id="pdContent" class="detail-list"></div>
+    <div class="dialog-actions">
+      <button class="btn tonal" id="editProductFromDetail">✎ Editar</button>
+      <button class="btn primary" data-close="productDetailDialog">Cerrar</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="movementDetailDialog">
+  <div class="dialog-card">
+    <div class="dialog-head">
+      <div><small>Detalle de salida</small><h2 id="mdTitle">Salida</h2></div>
+      <button class="icon-btn" data-close="movementDetailDialog">×</button>
+    </div>
+    <div id="mdContent" class="detail-list"></div>
+    <div class="dialog-actions"><button class="btn primary" data-close="movementDetailDialog">Cerrar</button></div>
+  </div>
+</dialog>
+
+<dialog id="editQtyDialog">
+  <form id="editQtyForm" class="dialog-card">
+    <div class="dialog-head">
+      <div><small>Control de salida</small><h2>Editar cantidad</h2></div>
+      <button type="button" class="icon-btn" data-close="editQtyDialog">×</button>
+    </div>
+    <div class="mini-summary">
+      <div><small>Código</small><strong id="eqCode">—</strong></div>
+      <div><small>Descripción</small><strong id="eqName">—</strong></div>
+    </div>
+    <label>Cantidad<input id="eqQty" class="no-spinner" type="number" min="1" step="1" required></label>
+    <small id="eqInfo" class="hint"></small>
+    <div class="notice">↔ Al cambiar la cantidad, el inventario se ajustará automáticamente.</div>
+    <div class="dialog-actions">
+      <button type="button" class="btn tonal" data-close="editQtyDialog">Cancelar</button>
+      <button class="btn primary" type="submit">Actualizar</button>
+    </div>
+  </form>
+</dialog>
+
+
+<dialog id="createWeekDialog">
+  <form id="createWeekForm" class="dialog-card">
+    <div class="dialog-head">
+      <div>
+        <small>Conteo Semanal</small>
+        <h2>Crear semana</h2>
+      </div>
+      <button type="button" class="icon-btn" data-close="createWeekDialog" aria-label="Cerrar">×</button>
+    </div>
+
+    <label>Nombre de la semana
+      <input id="cwLabel" required placeholder="Ej. SEMANA 07/09/2026 - 13/09/2026">
+    </label>
+
+    <label>Responsable semanal
+      <select id="cwResponsible" required>
+        <option value="">Selecciona responsable...</option>
+      </select>
+    </label>
+
+    <div class="notice">
+      La tabla comenzará vacía. Después podrás importar códigos o traer productos desde Inventario.
+    </div>
+
+    <div class="dialog-actions">
+      <button type="button" class="btn tonal" data-close="createWeekDialog">Cancelar</button>
+      <button class="btn primary" type="submit">Crear semana</button>
+    </div>
+  </form>
+</dialog>
+
+
+<dialog id="digitalResponsibleDialog">
+  <form id="digitalResponsibleForm" class="dialog-card">
+    <div class="dialog-head">
+      <div>
+        <small>Inventario Digital</small>
+        <h2>Responsable del conteo físico</h2>
+      </div>
+      <button type="button" class="icon-btn" data-close="digitalResponsibleDialog" aria-label="Cerrar">×</button>
+    </div>
+
+    <p class="hint">
+      Antes de seleccionar una familia, asigna a la persona responsable de realizar el conteo físico.
+    </p>
+
+    <label>Responsable
+      <select id="digitalResponsibleSelect" required>
+        <option value="">Selecciona responsable...</option>
+      </select>
+    </label>
+
+    <label>O escribir otro nombre
+      <input id="digitalResponsibleCustom" type="text" placeholder="Nombre del responsable">
+    </label>
+
+    <div class="dialog-actions">
+      <button type="button" class="btn tonal" data-close="digitalResponsibleDialog">Cancelar</button>
+      <button class="btn primary" type="submit">Asignar responsable</button>
+    </div>
+  </form>
+</dialog>
+
+
+<div class="toast" id="toast"></div>
+<script src="deploy-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
