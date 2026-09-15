@@ -1,0 +1,58 @@
+MI BODEGA V80.3.5 COMPLETA — TODAS LAS ACTUALIZACIONES
+========================================================
+
+Esta versión consolida todas las correcciones realizadas hasta V80.3.4.
+No usa login/PIN de Netlify.
+
+INCLUYE
+- Auto Sync estable: guarda primero local y luego Google Sheets.
+- Sin login/sesión para evitar desconexiones y expulsiones.
+- Inventario recuperable desde la hoja Inventario si el snapshot queda vacío.
+- Restablecer a fábrica seguro conservando BASE_PRODUCTOS y conexión.
+- Inventario Digital con historial persistente y Familias Contadas.
+- Diferencias persistentes e historial.
+- Conteo Semanal con historial y resaltado de filas al contar.
+- Inventario Digital: fila resaltada al escribir Físico.
+- Calculadora integrada.
+- Calculadora controlable con teclado PC: 0-9, +, -, *, /, Enter, =, Backspace, C/Delete y Esc.
+- La rueda del mouse NO cambia cantidades numéricas cuando un campo está activo.
+- Catálogo siempre como texto y respetando BASE_PRODUCTOS.
+- Al editar Inventario se actualiza BASE_PRODUCTOS: Catálogo, Descripción, Familia, Mín., Máx. y Reposición.
+- Reposición = Máximo - Existencia (mínimo 0).
+- Código, Catálogo y Descripción completos en una sola línea con scroll horizontal.
+- Menú móvil sin barra inferior redundante.
+
+ARCHIVOS PARA GITHUB / NETLIFY
+- public/index.html
+- public/app.js
+- public/styles.css
+- public/deploy-config.js
+- public/manifest.webmanifest
+- netlify/functions/bodega.mjs
+- netlify.toml
+
+VARIABLES DE ENTORNO NETLIFY
+- BODEGA_APPS_SCRIPT_URL
+- BODEGA_API_TOKEN
+
+BODEGA_ACCESS_PIN YA NO SE USA.
+
+GOOGLE APPS SCRIPT
+Usa backend_google_sheets/Code.gs de esta misma versión.
+Después de reemplazarlo:
+1. Guardar.
+2. Ejecutar setup() una vez.
+3. Implementar > Administrar implementaciones > Editar > Nueva versión > Implementar.
+4. Mantener la misma URL /exec si ya está configurada.
+
+PRUEBA RECOMENDADA
+1. Abrir el sitio y Ctrl+F5.
+2. Confirmar que Inventario cargue.
+3. Editar un producto y cambiar Mín. y Máx.; verificar BASE_PRODUCTOS.
+4. En Inventario Digital escribir Físico y mover la rueda: la cantidad no debe cambiar.
+5. Abrir Calculadora y probar 12*4+3 Enter.
+6. Contar algunos productos, recargar la página y confirmar que no se pierdan.
+7. Revisar Historial / Familias Contadas.
+
+IMPORTANTE
+Antes de cambiar Code.gs o restablecer a fábrica, haz una copia de tu Google Sheet si contiene datos reales.
